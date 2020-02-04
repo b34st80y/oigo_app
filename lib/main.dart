@@ -24,9 +24,9 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Hermes Tracker",
+      title: "OiGO App",
       home: Scaffold(
-        appBar: AppBar(title: Text('Hermes Tracker')),
+        appBar: AppBar(title: Text('OiGO App')),
         body: _pageOptions[_selectedPage],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedPage,
