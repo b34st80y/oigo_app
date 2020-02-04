@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:oigo_app/AlliancePage.dart';
-import 'package:oigo_app/EmotionsPage.dart';
-import 'package:oigo_app/HomePage.dart';
-import 'package:oigo_app/SettingsPage.dart';
-
+import 'package:oigo_app/Pages/AlliancePage.dart';
+import 'package:oigo_app/Pages/EmotionsPage.dart';
+import 'package:oigo_app/Pages/HomePage.dart';
+import 'package:oigo_app/Pages/SettingsPage.dart';
 
 void main() {
   runApp(MaterialApp(
