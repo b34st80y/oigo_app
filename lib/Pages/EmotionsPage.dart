@@ -1,8 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class EmotionsPage extends StatelessWidget {
+class EmotionsPage extends StatefulWidget {
+
   @override
+  _EmotionsPageState createState() => _EmotionsPageState();
+}
+class _EmotionsPageState extends State<EmotionsPage> {
+
+  String sentence = 'Text';
+
+    @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
@@ -22,8 +30,9 @@ class EmotionsPage extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 color: Colors.white,
               ),
-              child: Text(
-                'String',
+              child:
+              Text(
+                '$sentence',
                 style: TextStyle(
                   fontSize: 25.0,
                 ),
@@ -33,11 +42,36 @@ class EmotionsPage extends StatelessWidget {
         ),
         Wrap(
           children: <Widget>[
-            CustomButton(color: Colors.red, text: 'Button 1',),
-            CustomButton(color: Colors.blue, text: 'Button 2',),
-            CustomButton(color: Colors.green, text: 'Button 3',),
-            CustomButton(color: Colors.purple, text: 'Button 4',),
-            CustomButton(color: Colors.yellow, text: 'Button 5',),
+            CustomButton(color: Colors.red, text: 'Button 1',
+              onTap: () {
+                setState(() {
+                  sentence =  'Button 1';
+                });
+              }),
+            CustomButton(color: Colors.blue, text: 'Button 2',
+                onTap: () {
+                  setState(() {
+                    sentence =  'Button 2';
+                  });
+                }),
+            CustomButton(color: Colors.green, text: 'Button 3',
+                onTap: () {
+                  setState(() {
+                    sentence =  'Button 3';
+                  });
+                }),
+            CustomButton(color: Colors.purple, text: 'Button 4',
+                onTap: () {
+                  setState(() {
+                    sentence =  'Button 4';
+                  });
+                }),
+            CustomButton(color: Colors.yellow, text: 'Button 5',
+                onTap: () {
+                  setState(() {
+                    sentence =  'Button 5';
+                  });
+                }),
           ],
         ),
       ],
@@ -46,25 +80,27 @@ class EmotionsPage extends StatelessWidget {
 }
 
 class CustomButton extends StatelessWidget {
-
   final Color color;
   final String text;
+  final Function onTap;
 
-  CustomButton({this.color, this.text});
-
+  CustomButton({this.color, this.text, this.onTap});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: RaisedButton(
+        child: RaisedButton(
           child: Text(
             text,
             style: TextStyle(
-                fontSize: 25,
+              fontSize: 25,
             ),
           ),
           color: color,
-          onPressed: () {}),
+          onPressed: () {
+            onTap();
+          },
+        )
     );
   }
 }
