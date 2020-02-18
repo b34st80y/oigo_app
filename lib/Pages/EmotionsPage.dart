@@ -1,17 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class EmotionsPage extends StatefulWidget {
+var buttonsState = 'prefix';
 
+class EmotionsPage extends StatefulWidget {
   @override
   _EmotionsPageState createState() => _EmotionsPageState();
 }
+
 class _EmotionsPageState extends State<EmotionsPage> {
 
-  String sentence = 'Text';
+  Widget buttonsWidget;
+  var sentence = 'Starting Sentence';
 
     @override
   Widget build(BuildContext context) {
+    switch (buttonsState)  {
+      case 'prefix':
+        buttonsWidget = PrefixButtons();
+        break;
+      case 'emotions':
+        buttonsWidget = EmotionsButtons();
+        break;
+      case 'reasons':
+        buttonsWidget = ReasonButtons();
+    }
+
     return Column(
       children: <Widget>[
         SizedBox(
@@ -30,54 +44,49 @@ class _EmotionsPageState extends State<EmotionsPage> {
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 color: Colors.white,
               ),
-              child:
-              Text(
-                '$sentence',
-                style: TextStyle(
-                  fontSize: 25.0,
-                ),
+              child: Text('$sentence', style: TextStyle(fontSize: 25.0),
               ),
             ),
           ),
         ),
-        Wrap(
-          children: <Widget>[
-            CustomButton(color: Colors.red, text: 'Angry',
-              onTap: () {
-                setState(() {
-                  sentence =  'Angry';
-                });
-              }),
-            CustomButton(color: Colors.blue, text: 'Happy',
-                onTap: () {
-                  setState(() {
-                    sentence =  'Happy';
-                  });
-                }),
-            CustomButton(color: Colors.green, text: "Sad",
-                onTap: () {
-                  setState(() {
-                    sentence =  'Sad';
-                  });
-                }),
-            CustomButton(color: Colors.purple, text: 'Scared',
-                onTap: () {
-                  setState(() {
-                    sentence =  'Scared';
-                  });
-                }),
-            CustomButton(color: Colors.yellow, text: 'Jealous',
-                onTap: () {
-                  setState(() {
-                    sentence =  'Jealous';
-                  });
-                }),
-          ],
-        ),
+        buttonsWidget
       ],
     );
   }
 }
+
+class PrefixButtons extends StatefulWidget {
+  @override
+  _PrefixButtonsState createState() => _PrefixButtonsState();
+}
+
+class _PrefixButtonsState extends State<PrefixButtons> {
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      children: <Widget>[
+        CustomButton(text: "I feel...", color: Colors.green, onTap: () {},),
+        CustomButton(text: "Do you feel...?", color: Colors.blue, onTap: () {},),
+      ],
+    );
+  }
+}
+
+class EmotionsButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(color: Colors.red,);
+  }
+}
+
+class ReasonButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(color: Colors.blue,);
+  }
+}
+
+
 
 class CustomButton extends StatelessWidget {
   final Color color;
