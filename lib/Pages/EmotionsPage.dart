@@ -42,34 +42,34 @@ class _EmotionsPageState extends State<EmotionsPage> {
         ),
         Wrap(
           children: <Widget>[
-            CustomButton(color: Colors.red, text: 'Button 1',
+            CustomButton(color: Colors.red, text: 'Angry',
               onTap: () {
                 setState(() {
-                  sentence =  'Button 1';
+                  sentence =  'Angry';
                 });
               }),
-            CustomButton(color: Colors.blue, text: 'Button 2',
+            CustomButton(color: Colors.blue, text: 'Happy',
                 onTap: () {
                   setState(() {
-                    sentence =  'Button 2';
+                    sentence =  'Happy';
                   });
                 }),
-            CustomButton(color: Colors.green, text: 'Button 3',
+            CustomButton(color: Colors.green, text: "Sad",
                 onTap: () {
                   setState(() {
-                    sentence =  'Button 3';
+                    sentence =  'Sad';
                   });
                 }),
-            CustomButton(color: Colors.purple, text: 'Button 4',
+            CustomButton(color: Colors.purple, text: 'Scared',
                 onTap: () {
                   setState(() {
-                    sentence =  'Button 4';
+                    sentence =  'Scared';
                   });
                 }),
-            CustomButton(color: Colors.yellow, text: 'Button 5',
+            CustomButton(color: Colors.yellow, text: 'Jealous',
                 onTap: () {
                   setState(() {
-                    sentence =  'Button 5';
+                    sentence =  'Jealous';
                   });
                 }),
           ],
@@ -89,17 +89,21 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-        child: RaisedButton(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 25,
+        child: SizedBox(
+          height: 60,
+          width: 150,
+          child: RaisedButton(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
+            color: color,
+            onPressed: () {
+              onTap();
+            },
           ),
-          color: color,
-          onPressed: () {
-            onTap();
-          },
         )
     );
   }
