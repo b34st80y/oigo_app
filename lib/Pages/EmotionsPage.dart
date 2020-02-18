@@ -6,13 +6,28 @@ class EmotionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          color: Colors.grey[400],
-          child: Text(
-          'String',
-            style: TextStyle(
-              fontSize: 25.0,
-
+        SizedBox(
+          height: 100,
+          child: Container(
+            margin: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              color: Colors.grey,
+            ),
+            alignment: Alignment(0,0),
+            child: Container(
+              margin: EdgeInsets.all(5),
+              alignment: Alignment(0,0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: Colors.white,
+              ),
+              child: Text(
+                'String',
+                style: TextStyle(
+                  fontSize: 25.0,
+                ),
+              ),
             ),
           ),
         ),
@@ -32,18 +47,24 @@ class EmotionsPage extends StatelessWidget {
 
 class CustomButton extends StatelessWidget {
 
-  Color color;
-  String text;
+  final Color color;
+  final String text;
 
   CustomButton({this.color, this.text});
-
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.all(20.0),
       child: RaisedButton(
-          child: Text(text), color: color, onPressed: () {}),
+          child: Text(
+            text,
+            style: TextStyle(
+                fontSize: 25,
+            ),
+          ),
+          color: color,
+          onPressed: () {}),
     );
   }
 }

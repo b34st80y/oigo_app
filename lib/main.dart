@@ -37,7 +37,7 @@ class MyAppState extends State<MyApp> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.face),
+              icon: Icon(Icons.face), //Icons.tag_faces
               title: Text('Emotions')
             ),
             BottomNavigationBarItem(
