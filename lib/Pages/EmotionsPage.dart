@@ -1,33 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-var buttonsState = 'prefix';
-
 class EmotionsPage extends StatefulWidget {
   @override
   _EmotionsPageState createState() => _EmotionsPageState();
 }
 
+var _state = ValueNotifier(0);
+var sentence = ValueNotifier('Text');
+
 class _EmotionsPageState extends State<EmotionsPage> {
-
-  Widget buttonsWidget;
-  var sentence = 'Starting Sentence';
-
-    @override
+      @override
   Widget build(BuildContext context) {
-    switch (buttonsState)  {
-      case 'prefix':
-        buttonsWidget = PrefixButtons();
-        break;
-      case 'emotions':
-        buttonsWidget = EmotionsButtons();
-        break;
-      case 'reasons':
-        buttonsWidget = ReasonButtons();
-    }
-
     return Column(
       children: <Widget>[
+        SizedBox(height: 10),
         SizedBox(
           height: 100,
           child: Container(
@@ -42,31 +29,47 @@ class _EmotionsPageState extends State<EmotionsPage> {
               alignment: Alignment(0,0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.white,
-              ),
-              child: Text('$sentence', style: TextStyle(fontSize: 25.0),
+                color: Colors.white),
+              child: ValueListenableBuilder(
+                valueListenable: sentence,
+                builder: (context, value, child) {
+                  return Text(value);
+                },
               ),
             ),
           ),
         ),
-        buttonsWidget
+        ValueListenableBuilder(
+          valueListenable: _state,
+          builder: (context, value, child) {
+            switch (value) {
+              case 0:
+                return PrefixButtons();
+              case 1:
+                return EmotionsButtons();
+
+              default: return Container(color: Colors.red,);
+            }
+          },
+        )
       ],
     );
   }
 }
 
-class PrefixButtons extends StatefulWidget {
-  @override
-  _PrefixButtonsState createState() => _PrefixButtonsState();
-}
-
-class _PrefixButtonsState extends State<PrefixButtons> {
+class PrefixButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
       children: <Widget>[
-        CustomButton(text: "I feel...", color: Colors.green, onTap: () {},),
-        CustomButton(text: "Do you feel...?", color: Colors.blue, onTap: () {},),
+        CustomButton(text: "I feel...", color: Colors.green, onTap: () {
+          sentence.value = "I feel ";
+          _state.value = 1;
+        },),
+        CustomButton(text: "Do you feel...?", color: Colors.blue, onTap: () {
+          sentence.value = "Do you feel ";
+          _state.value = 1;
+        },),
       ],
     );
   }
@@ -75,17 +78,42 @@ class _PrefixButtonsState extends State<PrefixButtons> {
 class EmotionsButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.red,);
+    return Wrap(
+      children: <Widget>[
+        CustomButton(color: Colors.yellow, text: 'Happy',
+            onTap: () {
+              sentence.value+="happy";
+
+            }),
+        CustomButton(color: Colors.blue, text: "Sad",
+            onTap: () {
+              sentence.value+="sad";
+
+            }),
+        CustomButton(color: Colors.red, text: 'Angry',
+            onTap: () {
+              sentence.value+="angry";
+
+            }),
+        CustomButton(color: Colors.orange, text: 'Frustrated',
+            onTap: () {
+              sentence.value+="jealous";
+
+            }),
+        CustomButton(color: Colors.purple, text: 'Worried',
+            onTap: () {
+              sentence.value+="worried";
+
+            }),
+        CustomButton(color: Colors.green, text: 'Scared',
+            onTap: () {
+              sentence.value+="scared";
+
+            }),
+      ],
+    );
   }
 }
-
-class ReasonButtons extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(color: Colors.blue,);
-  }
-}
-
 
 
 class CustomButton extends StatelessWidget {
