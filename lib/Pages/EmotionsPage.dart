@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +10,27 @@ class EmotionsPage extends StatefulWidget {
 
 var _state = ValueNotifier(0);
 var sentence = ValueNotifier('...');
+var sentenceStack = SentenceStack();
+
+class SentenceStack extends ListBase<String> {
+  final List<String> l = [];
+  SentenceStack();
+
+  set length(int newLength) { l.length = newLength; }
+  int get length => l.length;
+  String operator [](int index) => l[index];
+  void operator []=(int index, String value) { l[index] = value; }
+
+  // your custom methods
+  String constructSentence (){
+    String temp = "";
+    this.forEach((element) {
+      temp+= element;
+      temp+= " ";
+    });
+    return temp;
+  }
+}
 
 class _EmotionsPageState extends State<EmotionsPage> {
       @override
@@ -78,23 +101,17 @@ class PrefixButtons extends StatelessWidget {
         Wrap(
           children: <Widget>[
             CustomButton(text: "I feel...", color: Colors.green, onTap: () {
-              sentence.value = "I feel ";
+              sentenceStack.add("I feel");
+              sentence.value = sentenceStack.constructSentence();
               _state.value = 1;
             },),
             CustomButton(text: "Do you feel...?", color: Colors.blue, onTap: () {
-              sentence.value = "Do you feel ";
+              sentenceStack.add("Do you feel");
+              sentence.value = sentenceStack.constructSentence();
               _state.value = 1;
             },),
           ],
         ),
-//        SizedBox(height: 75),
-//        FloatingActionButton.extended(
-//            onPressed: () {
-//              sentence.value = "";
-//              _state.value = 0;
-//              },
-//            label: Text('Clear Sentence')
-//        ),
       ],
     );
   }
