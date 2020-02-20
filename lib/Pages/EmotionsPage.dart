@@ -7,7 +7,7 @@ class EmotionsPage extends StatefulWidget {
 }
 
 var _state = ValueNotifier(0);
-var sentence = ValueNotifier('Text');
+var sentence = ValueNotifier('...');
 
 class _EmotionsPageState extends State<EmotionsPage> {
       @override
