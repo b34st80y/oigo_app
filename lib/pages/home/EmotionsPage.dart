@@ -32,6 +32,36 @@ class SentenceStack extends ListBase<String> {
   }
 }
 
+class CustomButton extends StatelessWidget {
+  final Color color;
+  final String text;
+  final Function onTap;
+
+  CustomButton({this.color, this.text, this.onTap});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          height: 60,
+          width: 150,
+          child: RaisedButton(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 17,
+              ),
+            ),
+            color: color,
+            onPressed: () {
+              onTap();
+            },
+          ),
+        )
+    );
+  }
+}
+
 class _EmotionsPageState extends State<EmotionsPage> {
       @override
   Widget build(BuildContext context) {
@@ -130,74 +160,38 @@ class EmotionsButtons extends StatelessWidget {
               sentenceStack.add("happy");
               sentence.value = sentenceStack.constructSentence();
               _state.value = 2;
-
             }),
         CustomButton(color: Colors.blue, text: "Sad",
             onTap: () {
               sentenceStack.add("sad");
               sentence.value = sentenceStack.constructSentence();
               _state.value = 3;
-
             }),
         CustomButton(color: Colors.red, text: 'Angry',
             onTap: () {
               sentenceStack.add("angry");
               sentence.value = sentenceStack.constructSentence();
               _state.value = 4;
-
             }),
         CustomButton(color: Colors.orange, text: 'Frustrated',
             onTap: () {
               sentenceStack.add("frustrated");
               sentence.value = sentenceStack.constructSentence();
               _state.value = 5;
-
             }),
         CustomButton(color: Colors.purple, text: 'Worried',
             onTap: () {
               sentenceStack.add("worried");
               sentence.value = sentenceStack.constructSentence();
               _state.value = 6;
-
             }),
         CustomButton(color: Colors.green, text: 'Scared',
             onTap: () {
               sentenceStack.add("scared");
               sentence.value = sentenceStack.constructSentence();
               _state.value = 7;
-
             }),
       ],
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  final Color color;
-  final String text;
-  final Function onTap;
-
-  CustomButton({this.color, this.text, this.onTap});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-          height: 60,
-          width: 150,
-          child: RaisedButton(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 17,
-              ),
-            ),
-            color: color,
-            onPressed: () {
-              onTap();
-            },
-          ),
-        )
     );
   }
 }
@@ -230,241 +224,134 @@ class HappyReasonsButtons extends StatelessWidget {
 }
 
 class SadReasonsButtons extends StatelessWidget {
+
+  final sadReasons = [
+    "about losing someone special.",
+    "about loving someone who doesn't love me.",
+    "about being lonely.",
+    "that you are not here.",
+    "that you are ignoring me.",
+    "because I never say the right things.",
+    "because nobody likes me.",
+    "I am alone.",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: <Widget>[
-        CustomButton(text: "about losing someone special.", color: Colors.blue[100], onTap: () {
-          sentenceStack.add("about losing someone special.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about loving someone who doesn't love me.", color: Colors.blue[200], onTap: () {
-          sentenceStack.add("about loving someone who doesn't love me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about being lonely.", color: Colors.blue[300], onTap: () {
-          sentenceStack.add("about being lonely.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "that you are not here.", color: Colors.blue[400], onTap: () {
-          sentenceStack.add("that you are not here.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "that you are ignoring me.", color: Colors.blue[500], onTap: () {
-          sentenceStack.add("that you are ignoring me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I never say the right things.", color: Colors.blue[600], onTap: () {
-          sentenceStack.add("because I never say the right things.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because nobody likes me.", color: Colors.blue[700], onTap: () {
-          sentenceStack.add("because nobody likes me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "I am alone.", color: Colors.blue[800], onTap: () {
-          sentenceStack.add("I am alone.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-      ],
+        children: sadReasons.map((reason) {
+          return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
+            sentenceStack.add(reason);
+            sentence.value = sentenceStack.constructSentence();
+            _state.value = 0;
+          },);
+        }).toList()
     );
   }
 }
 
 class AngryReasonsButtons extends StatelessWidget {
+
+  final angryReasons = [
+    "about not getting my way.",
+    "about being made fun of.",
+    "about being ignored.",
+    "because you ignored me.",
+    "because you hurt my feelings.",
+    "because you are being mean.",
+    "about what you are doing.",
+    "because you lied to me.",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: <Widget>[
-        CustomButton(text: "about not getting my way.", color: Colors.red[100], onTap: () {
-          sentenceStack.add("about not getting my way.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about being made fun of.", color: Colors.red[200], onTap: () {
-          sentenceStack.add("about being made fun of.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about being ignored.", color: Colors.red[300], onTap: () {
-          sentenceStack.add("about being ignored.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because you ignored me.", color: Colors.red[400], onTap: () {
-          sentenceStack.add("because you ignored me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because you hurt my feelings.", color: Colors.red[500], onTap: () {
-          sentenceStack.add("because you hurt my feelings.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because you are being mean.", color: Colors.red[600], onTap: () {
-          sentenceStack.add("because you are being mean.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about what you are doing.", color: Colors.red[700], onTap: () {
-          sentenceStack.add("about what you are doing.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because you lied to me.", color: Colors.red[800], onTap: () {
-          sentenceStack.add("because you lied to me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-      ],
+        children: angryReasons.map((reason) {
+          return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
+            sentenceStack.add(reason);
+            sentence.value = sentenceStack.constructSentence();
+            _state.value = 0;
+          },);
+        }).toList()
     );
   }
 }
 
 class FrustratedReasonsButtons extends StatelessWidget {
+
+  final frustratedReasons = [
+    "about losing.",
+    "about not being able to understand.",
+    "about forgetting things.",
+    "when you treat me like im stupid.",
+    "when you ignore me.",
+    "when I can't exppress myself.",
+    "when I can't understand things.",
+    "that I'm not included.",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: <Widget>[
-        CustomButton(text: "about losing.", color: Colors.orange[100], onTap: () {
-          sentenceStack.add("about losing.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about not being able to understand.", color: Colors.orange[200], onTap: () {
-          sentenceStack.add("about not being able to understand.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about forgetting things.", color: Colors.orange[300], onTap: () {
-          sentenceStack.add("about forgetting things.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "when you treat me like im stupid.", color: Colors.orange[400], onTap: () {
-          sentenceStack.add("when you treat me like im stupid.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "when you ignore me.", color: Colors.orange[500], onTap: () {
-          sentenceStack.add("when you ignore me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "when I can't exppress myself.", color: Colors.orange[600], onTap: () {
-          sentenceStack.add("when I can't exppress myself.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "when I can't understand things.", color: Colors.orange[700], onTap: () {
-          sentenceStack.add("when I can't understand things.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "that I'm not included.", color: Colors.orange[800], onTap: () {
-          sentenceStack.add("that I'm not included.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-      ],
+        children: frustratedReasons.map((reason) {
+          return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
+            sentenceStack.add(reason);
+            sentence.value = sentenceStack.constructSentence();
+            _state.value = 0;
+          },);
+        }).toList()
     );
   }
 }
 
 class WorriedReasonsButtons extends StatelessWidget {
+
+  final worriedReasons = [
+    "about how I look",
+    "about what people will think about me.",
+    "about not getting a job.",
+    "about not having friends.",
+    "because I can't talk to people.",
+    "because I'm not good at sports.",
+    "because people aren't nice to me.",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: <Widget>[
-        CustomButton(text: "about how I look", color: Colors.purple[100], onTap: () {
-          sentenceStack.add("about how I look");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about what people will think about me.", color: Colors.purple[200], onTap: () {
-          sentenceStack.add("about what people will think about me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about not getting a job.", color: Colors.purple[300], onTap: () {
-          sentenceStack.add("about not getting a job.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "about not having friends.", color: Colors.purple[400], onTap: () {
-          sentenceStack.add("about not having friends.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I can't talk to people.", color: Colors.purple[500], onTap: () {
-          sentenceStack.add("because I can't talk to people.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I'm not good at sports.", color: Colors.purple[600], onTap: () {
-          sentenceStack.add("because I'm not good at sports.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because people aren't nice to me.", color: Colors.purple[700], onTap: () {
-          sentenceStack.add("because people aren't nice to me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-      ],
+        children: worriedReasons.map((reason) {
+          return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
+            sentenceStack.add(reason);
+            sentence.value = sentenceStack.constructSentence();
+            _state.value = 0;
+          },);
+        }).toList()
     );
   }
 }
 
 class ScaredReasonsButtons extends StatelessWidget {
+
+  final scaredReasons = [
+    "that you will leave me.",
+    "that people wont like me.",
+    "of loud noises.",
+    "of being alone.",
+    "of disappointing you.",
+    "because I am all alone.",
+    "because I think I will fail."
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: <Widget>[
-        CustomButton(text: "that you will leave me.", color: Colors.green[100], onTap: () {
-          sentenceStack.add("that you will leave me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "that people wont like me.", color: Colors.green[200], onTap: () {
-          sentenceStack.add("that people wont like me.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "of loud noises.", color: Colors.green[300], onTap: () {
-          sentenceStack.add("of loud noises.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "of being alone.", color: Colors.green[400], onTap: () {
-          sentenceStack.add("of being alone.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "of disappointing you.", color: Colors.green[500], onTap: () {
-          sentenceStack.add("of disappointing you.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I am all alone.", color: Colors.green[600], onTap: () {
-          sentenceStack.add("because I am all alone.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I think I will fail.", color: Colors.green[700], onTap: () {
-          sentenceStack.add("because I think I will fail.");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-      ],
+        children: scaredReasons.map((reason) {
+          return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
+            sentenceStack.add(reason);
+            sentence.value = sentenceStack.constructSentence();
+            _state.value = 0;
+          },);
+        }).toList()
     );
   }
 }
