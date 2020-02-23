@@ -1,7 +1,7 @@
 import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oigo_app/resources/reasons.dart';
 
 class EmotionsPage extends StatefulWidget {
   @override
@@ -198,21 +198,12 @@ class EmotionsButtons extends StatelessWidget {
 
 class HappyReasonsButtons extends StatelessWidget {
 
-  final happyReasons = [
-    "because I'm making progress",
-    "about myself",
-    "because I succeed",
-    "because I'm organized",
-    "because of my behavior today",
-    "because you trust me",
-    "because I'm going to school",
-    "because I'm making a friend",
-  ];
+  final reasons = Reasons.happyReasons;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: happyReasons.map((reason) {
+      children: reasons.map((reason) {
         return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
           sentenceStack.add(reason);
           sentence.value = sentenceStack.constructSentence();
@@ -225,21 +216,12 @@ class HappyReasonsButtons extends StatelessWidget {
 
 class SadReasonsButtons extends StatelessWidget {
 
-  final sadReasons = [
-    "about losing someone special.",
-    "about loving someone who doesn't love me.",
-    "about being lonely.",
-    "that you are not here.",
-    "that you are ignoring me.",
-    "because I never say the right things.",
-    "because nobody likes me.",
-    "I am alone.",
-  ];
+  final reasons = Reasons.sadReasons;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-        children: sadReasons.map((reason) {
+        children: reasons.map((reason) {
           return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
             sentenceStack.add(reason);
             sentence.value = sentenceStack.constructSentence();
@@ -252,21 +234,12 @@ class SadReasonsButtons extends StatelessWidget {
 
 class AngryReasonsButtons extends StatelessWidget {
 
-  final angryReasons = [
-    "about not getting my way.",
-    "about being made fun of.",
-    "about being ignored.",
-    "because you ignored me.",
-    "because you hurt my feelings.",
-    "because you are being mean.",
-    "about what you are doing.",
-    "because you lied to me.",
-  ];
+  final reasons = Reasons.angryReasons;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-        children: angryReasons.map((reason) {
+        children: reasons.map((reason) {
           return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
             sentenceStack.add(reason);
             sentence.value = sentenceStack.constructSentence();
@@ -279,21 +252,12 @@ class AngryReasonsButtons extends StatelessWidget {
 
 class FrustratedReasonsButtons extends StatelessWidget {
 
-  final frustratedReasons = [
-    "about losing.",
-    "about not being able to understand.",
-    "about forgetting things.",
-    "when you treat me like im stupid.",
-    "when you ignore me.",
-    "when I can't exppress myself.",
-    "when I can't understand things.",
-    "that I'm not included.",
-  ];
+  final reasons = Reasons.frustratedReasons;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-        children: frustratedReasons.map((reason) {
+        children: reasons.map((reason) {
           return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
             sentenceStack.add(reason);
             sentence.value = sentenceStack.constructSentence();
@@ -306,20 +270,12 @@ class FrustratedReasonsButtons extends StatelessWidget {
 
 class WorriedReasonsButtons extends StatelessWidget {
 
-  final worriedReasons = [
-    "about how I look",
-    "about what people will think about me.",
-    "about not getting a job.",
-    "about not having friends.",
-    "because I can't talk to people.",
-    "because I'm not good at sports.",
-    "because people aren't nice to me.",
-  ];
+  final reasons = Reasons.worriedReasons;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-        children: worriedReasons.map((reason) {
+        children: reasons.map((reason) {
           return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
             sentenceStack.add(reason);
             sentence.value = sentenceStack.constructSentence();
@@ -332,20 +288,12 @@ class WorriedReasonsButtons extends StatelessWidget {
 
 class ScaredReasonsButtons extends StatelessWidget {
 
-  final scaredReasons = [
-    "that you will leave me.",
-    "that people wont like me.",
-    "of loud noises.",
-    "of being alone.",
-    "of disappointing you.",
-    "because I am all alone.",
-    "because I think I will fail."
-  ];
+  final reasons = Reasons.scaredReasons;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-        children: scaredReasons.map((reason) {
+        children: reasons.map((reason) {
           return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
             sentenceStack.add(reason);
             sentence.value = sentenceStack.constructSentence();
