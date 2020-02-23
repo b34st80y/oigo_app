@@ -84,7 +84,8 @@ class _EmotionsPageState extends State<EmotionsPage> {
                 return WorriedReasonsButtons();
               case 7:
                 return ScaredReasonsButtons();
-              default: return Container(color: Colors.red,);
+              default:
+                return Container(color: Colors.red, child: Text("ERROR"));
             }
           },
         ),
@@ -202,51 +203,28 @@ class CustomButton extends StatelessWidget {
 }
 
 class HappyReasonsButtons extends StatelessWidget {
+
+  final happyReasons = [
+    "because I'm making progress",
+    "about myself",
+    "because I succeed",
+    "because I'm organized",
+    "because of my behavior today",
+    "because you trust me",
+    "because I'm going to school",
+    "because I'm making a friend",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: <Widget>[
-        CustomButton(text: "because I'm making progress", color: Colors.yellow[100], onTap: () {
-          sentenceStack.add("because I'm making progress");
+      children: happyReasons.map((reason) {
+        return CustomButton(text: reason, color: Colors.blue[100], onTap: () {
+          sentenceStack.add(reason);
           sentence.value = sentenceStack.constructSentence();
           _state.value = 0;
-        },),
-        CustomButton(text: "about myself", color: Colors.yellow[200], onTap: () {
-          sentenceStack.add("about myself");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I succeed", color: Colors.yellow[300], onTap: () {
-          sentenceStack.add("because I succeed");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I'm organized", color: Colors.yellow[400], onTap: () {
-          sentenceStack.add("because I'm organized");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because of my behavior today", color: Colors.yellow[500], onTap: () {
-          sentenceStack.add("because of my behavior today");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because you trust me", color: Colors.yellow[600], onTap: () {
-          sentenceStack.add("because you trust me");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-        CustomButton(text: "because I'm going to school", color: Colors.yellow[700], onTap: () {
-          sentenceStack.add("because I'm going to school");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 1;
-        },),
-        CustomButton(text: "because I'm making a friend", color: Colors.yellow[800], onTap: () {
-          sentenceStack.add("because I'm making a friend");
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },),
-      ],
+        },);
+      }).toList()
     );
   }
 }
