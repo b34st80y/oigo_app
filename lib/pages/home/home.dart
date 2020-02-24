@@ -16,7 +16,6 @@ class HomeState extends State<Home> {
   final _pageOptions = [
     EmotionsPage(),
     AlliancePage(),
-    SettingsPage(),
   ];
 
   final AuthService _auth = AuthService();
@@ -32,6 +31,13 @@ class HomeState extends State<Home> {
               label: Text('Logout'),
               onPressed: () {
                 _auth.signOut();
+              }),
+          FlatButton.icon(
+              icon: Icon(Icons.settings),
+              label: Text('Settings'),
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => SettingsPage()));
               })
         ],
       ),
@@ -49,8 +55,6 @@ class HomeState extends State<Home> {
               title: Text('Emotions')),
           BottomNavigationBarItem(
               icon: Icon(Icons.people), title: Text('Alliance')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text('Settings')),
         ],
       ),
     );
