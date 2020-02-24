@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:oigo_app/services/auth.dart';
 
 class LoginPage extends StatelessWidget {
+  final Function toggleView;
+
+  LoginPage({this.toggleView});
 
   final TextEditingController emailEditingController = TextEditingController();
-  final TextEditingController passwordEditingController = TextEditingController();
+  final TextEditingController passwordEditingController =
+      TextEditingController();
+
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: <Widget>[
+          FlatButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Register'),
+              onPressed: () {
+                toggleView();
+              }),
+        ],
+      ),
       //resizeToAvoidBottomInset: false,
       body: Center(
         child: SingleChildScrollView(
@@ -22,10 +41,11 @@ class LoginPage extends StatelessWidget {
                   ),
                   Center(
                     child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      //child: Image.asset('assets/images/logo.png'),
-                    ),
+                        width: 100,
+                        height: 100,
+                        child: Text(
+                            'Welcome to OiGO App!') // Image.asset('assets/images/logo.png'),
+                        ),
                   ),
                   SizedBox(
                     height: 80,
@@ -79,7 +99,15 @@ class LoginPage extends StatelessWidget {
                     //color: Colors.green,
                     minWidth: double.infinity,
                     child: MaterialButton(
-                      onPressed: () => {},
+                      onPressed: () async {
+                        dynamic result = await _auth.signInAnon();
+                        if (result == null)
+                          print('error signing in');
+                        else {
+                          print('signed in');
+                          print(result.uid);
+                        }
+                      },
                       textColor: Colors.white,
                       color: Colors.purple,
                       height: 50,

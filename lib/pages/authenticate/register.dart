@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
+  final Function toggleView;
+
+  RegisterPage({this.toggleView});
 
   final TextEditingController emailEditingController = TextEditingController();
-  final TextEditingController passwordEditingController = TextEditingController();
-  final TextEditingController confirmEditingController = TextEditingController();
+  final TextEditingController passwordEditingController =
+      TextEditingController();
+  final TextEditingController confirmEditingController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: <Widget>[
+          FlatButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Sign-In'),
+              onPressed: () {
+                toggleView();
+              }),
+        ],
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -49,9 +66,7 @@ class RegisterPage extends StatelessWidget {
                                 color: Colors.purple,
                                 style: BorderStyle.solid))),
                   ),
-                  SizedBox(
-                      height: 30
-                  ),
+                  SizedBox(height: 30),
                   TextField(
                     autofocus: false,
                     obscureText: false,
