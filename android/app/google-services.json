@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "707357818181",
+    "firebase_url": "https://oigo-app.firebaseio.com",
+    "project_id": "oigo-app",
+    "storage_bucket": "oigo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:707357818181:android:95db8f0e6bc618ca50522c",
+        "android_client_info": {
+          "package_name": "edu.floridapoly.oigo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "707357818181-sc4l912osiru0cen9k8sjl4btm467uja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu3ER5O7I_5dx6_JJv9h4NxFlDcuGVbWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707357818181-sc4l912osiru0cen9k8sjl4btm467uja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
