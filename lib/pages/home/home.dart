@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oigo_app/pages/home/AlliancePage.dart';
 import 'package:oigo_app/pages/home/EmotionsPage.dart';
 import 'package:oigo_app/pages/home/SettingsPage.dart';
+import 'package:oigo_app/services/auth.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -18,10 +19,22 @@ class HomeState extends State<Home> {
     SettingsPage(),
   ];
 
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('OiGO App')),
+      appBar: AppBar(
+        title: Text('OiGO App'),
+        actions: <Widget>[
+          FlatButton.icon(
+              icon: Icon(Icons.lock),
+              label: Text('Logout'),
+              onPressed: () {
+                _auth.signOut();
+              })
+        ],
+      ),
       body: _pageOptions[_selectedPage],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPage,
@@ -35,11 +48,9 @@ class HomeState extends State<Home> {
               icon: Icon(Icons.face), // Icons.tag_faces
               title: Text('Emotions')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              title: Text('Alliance')),
+              icon: Icon(Icons.people), title: Text('Alliance')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings')),
+              icon: Icon(Icons.settings), title: Text('Settings')),
         ],
       ),
     );
