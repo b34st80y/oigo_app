@@ -28,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return loading
         ? Loading()
         : Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.transparent,

@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     return loading
         ? Loading()
         : Scaffold(
+            backgroundColor: Colors.white,
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.transparent,
