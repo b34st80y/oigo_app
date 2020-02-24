@@ -3,38 +3,41 @@ import 'package:flutter/material.dart';
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      //physics: BouncingScrollPhysics(),
-      children: <Widget>[
-        SettingsInkwell(
-          text: "Setting 1",
-          icon: Icon(Icons.settings),
-          onTap: () {
+    return Scaffold(
+      appBar: AppBar(title: Text('Settings')),
+      body: ListView(
+        //physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          SettingsInkwell(
+            text: "Setting 1",
+            icon: Icon(Icons.settings),
+            onTap: () {
 
-          },
-        ),
-        SettingsInkwell(
-          icon: Icon(Icons.settings),
-          text: "Setting 2",
-          onTap: () {
+            },
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "Setting 2",
+            onTap: () {
 
-          },
-        ),
-        SettingsInkwell(
-          icon: Icon(Icons.settings),
-          text: "Setting 3",
-          onTap: () {
+            },
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "Setting 3",
+            onTap: () {
 
-          },
-        ),
-        SettingsInkwell(
-          icon: Icon(Icons.settings),
-          text: "Setting 4",
-          onTap: () {
+            },
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "Setting 4",
+            onTap: () {
 
-          },
-        ),
-      ],
+            },
+          ),
+        ],
+      ),
     );
   }
 }
