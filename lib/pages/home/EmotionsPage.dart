@@ -29,7 +29,7 @@ class SentenceStack extends ListBase<String> {
     l[index] = value;
   }
 
-  // your custom methods
+  // custom methods
   String constructSentence() {
     String temp = "";
     this.forEach((element) {
