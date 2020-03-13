@@ -41,8 +41,10 @@ class AlliancePage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             List<DocumentSnapshot> list =
                                 chatSnapshot.data.documents;
-                            String message = list[index].data['message'];
-                            return Text(message);
+                            DocumentSnapshot messageSnapshot = list[index];
+                            String messageText = messageSnapshot.data['message'];
+                            String sender = messageSnapshot.data['sender'];
+                            return Text("Sender: " + sender.substring(0, 5) + "..." + " Message: " + messageText);
                           }),
                     );
                   }

@@ -62,7 +62,7 @@ class DatabaseService{
   }
 
   Stream<QuerySnapshot> allianceChatStream(aid){
-    return alliancesRef.document(aid).collection("chat").snapshots();
+    return alliancesRef.document(aid).collection("chat").orderBy('timestamp').snapshots();
   }
 
 }
