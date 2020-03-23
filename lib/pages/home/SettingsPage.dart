@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oigo_app/pages/settings/About.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class SettingsPage extends StatelessWidget {
         //physics: BouncingScrollPhysics(),
         children: <Widget>[
           SettingsInkwell(
-            text: "Setting 1",
+            text: "Account",
             icon: Icon(Icons.settings),
             onTap: () {
 
@@ -17,21 +18,36 @@ class SettingsPage extends StatelessWidget {
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
-            text: "Setting 2",
+            text: "Alliance",
             onTap: () {
 
             },
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
-            text: "Setting 3",
+            text: "Notifications",
             onTap: () {
 
             },
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
-            text: "Setting 4",
+            text: "About",
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => About()));
+            }
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "Help",
+            onTap: () {
+
+            },
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "Logout",
             onTap: () {
 
             },
