@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oigo_app/services/auth.dart';
-import '../../loading.dart';
+import '../../widgets/loading.dart';
 
 class LoginPage extends StatefulWidget {
   final Function toggleView;

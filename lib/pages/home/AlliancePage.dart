@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:oigo_app/datatypes/message.dart';
+import 'package:oigo_app/widgets/chat_bubble.dart';
+import 'package:oigo_app/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:oigo_app/services/database.dart';
 
@@ -34,28 +37,27 @@ class AlliancePage extends StatelessWidget {
                     .allianceChatStream(stringSnapshot.data),
                 builder: (context, chatSnapshot) {
                   if (chatSnapshot.hasData && chatSnapshot.data != null) {
+                    List<DocumentSnapshot> docs = chatSnapshot.data.documents;
                     return Container(
-                      height: 300,
+                      height: 600,
                       child: ListView.builder(
                           itemCount: chatSnapshot.data.documents.length,
                           itemBuilder: (context, index) {
-                            List<DocumentSnapshot> list =
-                                chatSnapshot.data.documents;
-                            DocumentSnapshot messageSnapshot = list[index];
-                            String messageText = messageSnapshot.data['message'];
-                            String sender = messageSnapshot.data['sender'];
-                            return Text("Sender: " + sender.substring(0, 5) + "..." + " Message: " + messageText);
+                            DocumentSnapshot messageSnapshot = docs[index];
+                            Message message = Message(
+                                text: messageSnapshot.data['message'],
+                                sender: messageSnapshot.data['sender'],
+                                timestamp: messageSnapshot.data['timestamp']);
+                            return ChatBubble(message: message);
                           }),
                     );
+                  } else {
+                    return Loading();
                   }
-                  return Container(
-                    color: Colors.blue,
-                    child: Text("loading..."),
-                  );
                 },
               );
             },
-          )
+          ),
         ],
       ),
     );
