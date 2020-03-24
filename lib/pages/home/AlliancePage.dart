@@ -38,8 +38,7 @@ class AlliancePage extends StatelessWidget {
                 builder: (context, chatSnapshot) {
                   if (chatSnapshot.hasData && chatSnapshot.data != null) {
                     List<DocumentSnapshot> docs = chatSnapshot.data.documents;
-                    return Container(
-                      height: 600,
+                    return Expanded(
                       child: ListView.builder(
                           itemCount: chatSnapshot.data.documents.length,
                           itemBuilder: (context, index) {
