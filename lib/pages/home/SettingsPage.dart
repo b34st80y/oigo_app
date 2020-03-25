@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:oigo_app/services/auth.dart';
+import 'package:oigo_app/pages/home/settings/Help.dart';
+import 'package:oigo_app/pages/home/settings/Notifications.dart';
+import 'package:oigo_app/pages/home/settings/Alliance.dart';
+
+final AuthService _auth = AuthService();
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
+      appBar: AppBar(
+          title: Text('Settings'),
+          actions: <Widget>[
+            FlatButton.icon(
+                icon: Icon(Icons.lock),
+                label: Text('Logout'),
+                onPressed: () {
+                  _auth.signOut();
+                  }),
+        ]),
+
       body: ListView(
         //physics: BouncingScrollPhysics(),
         children: <Widget>[
           SettingsInkwell(
-            text: "Setting 1",
+            text: "Account",
             icon: Icon(Icons.settings),
             onTap: () {
 
@@ -17,25 +33,38 @@ class SettingsPage extends StatelessWidget {
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
-            text: "Setting 2",
+            text: "Alliance",
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Alliance()));
+
+            },
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "Notifications",
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Notifications()));
+
+            },
+          ),
+          SettingsInkwell(
+            icon: Icon(Icons.settings),
+            text: "About",
             onTap: () {
 
             },
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
-            text: "Setting 3",
+            text: "Help",
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Help()));
 
-            },
-          ),
-          SettingsInkwell(
-            icon: Icon(Icons.settings),
-            text: "Setting 4",
-            onTap: () {
-
-            },
-          ),
+            }
+          )
         ],
       ),
     );
