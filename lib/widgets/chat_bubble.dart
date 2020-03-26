@@ -14,7 +14,7 @@ class ChatBubble extends StatelessWidget {
     return Container(
       alignment: Alignment.centerRight,
       child: Text(message.text),
-      //constraints: BoxConstraints(maxWidth: 50),
+      //constraints: BoxConstraints(maxWidth: 50), //WHY DOESNT THIS WORK???
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
