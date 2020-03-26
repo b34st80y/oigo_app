@@ -3,6 +3,7 @@ import 'package:oigo_app/services/auth.dart';
 import 'package:oigo_app/pages/home/settings/Help.dart';
 import 'package:oigo_app/pages/home/settings/Notifications.dart';
 import 'package:oigo_app/pages/home/settings/Alliance.dart';
+import 'package:oigo_app/pages/settings/About.dart';
 
 final AuthService _auth = AuthService();
 
@@ -53,8 +54,9 @@ class SettingsPage extends StatelessWidget {
             icon: Icon(Icons.settings),
             text: "About",
             onTap: () {
-
-            },
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => About()));
+            }
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
