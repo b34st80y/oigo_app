@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:oigo_app/services/auth.dart';
+import 'package:oigo_app/pages/home/settings/Help.dart';
+import 'package:oigo_app/pages/home/settings/Notifications.dart';
+import 'package:oigo_app/pages/home/settings/Alliance.dart';
 import 'package:oigo_app/pages/settings/About.dart';
+
+final AuthService _auth = AuthService();
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
+      appBar: AppBar(
+          title: Text('Settings'),
+          actions: <Widget>[
+            FlatButton.icon(
+                icon: Icon(Icons.lock),
+                label: Text('Logout'),
+                onPressed: () {
+                  _auth.signOut();
+                  }),
+        ]),
+
       body: ListView(
         //physics: BouncingScrollPhysics(),
         children: <Widget>[
@@ -20,6 +36,8 @@ class SettingsPage extends StatelessWidget {
             icon: Icon(Icons.settings),
             text: "Alliance",
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Alliance()));
 
             },
           ),
@@ -27,6 +45,8 @@ class SettingsPage extends StatelessWidget {
             icon: Icon(Icons.settings),
             text: "Notifications",
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Notifications()));
 
             },
           ),
@@ -42,16 +62,11 @@ class SettingsPage extends StatelessWidget {
             icon: Icon(Icons.settings),
             text: "Help",
             onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Help()));
 
-            },
-          ),
-          SettingsInkwell(
-            icon: Icon(Icons.settings),
-            text: "Logout",
-            onTap: () {
-
-            },
-          ),
+            }
+          )
         ],
       ),
     );
