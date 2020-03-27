@@ -53,7 +53,7 @@ class AlliancePage extends StatelessWidget {
                             child: Text('Join'),
                             onPressed: () {
                               alliance = _textFieldController.text;
-                              DatabaseService().updateUserAlliance(alliance);
+                              DatabaseService(uid: user.uid).updateUserAlliance(alliance);
                               Navigator.of(context).pop();
                             },
                           ),
