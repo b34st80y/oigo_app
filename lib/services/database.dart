@@ -1,24 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService{
   static final db = Firestore.instance;
   // uid = User ID, aid = Alliance ID
-  final String uid;
+  final FirebaseUser user;
 
-  DatabaseService({this.uid});
+  DatabaseService({this.user});
 
   CollectionReference usersRef = db.collection("users");
   CollectionReference alliancesRef = db.collection("alliances");
 
-  createUser(String name) {
-    usersRef.document(uid).setData({
-      "name" : name,
+  createUser() {
+    usersRef.document(user.uid).setData({
       "settings" : {},
     });
   }
 
+  Future<String> getUserName() async {
+    DocumentSnapshot userSnap = await usersRef.document(user.uid).get();
+    String name = userSnap.data["name"].toString();
+    return name;
+  }
+
   updateUserAlliance(String alliance) {
-    usersRef.document(uid).updateData({
+    usersRef.document(user.uid).updateData({
       "alliance" : alliance,
     });
   }
@@ -28,7 +34,7 @@ class DatabaseService{
     var docRef = alliancesRef.document();
     docRef.setData({
       "members" : {
-        "user_1" : uid,
+        "user_1" : user.uid,
       },
     });
     // link new alliance to user
@@ -46,7 +52,7 @@ class DatabaseService{
   }
 
   Future<String> getAlliance() async {
-    DocumentSnapshot userSnap = await usersRef.document(uid).get();
+    DocumentSnapshot userSnap = await usersRef.document(user.uid).get();
     String aid = userSnap.data["alliance"].toString();
     return aid;
   }
@@ -54,7 +60,8 @@ class DatabaseService{
   sendAllianceMessage(String message) {
     getAlliance().then((aid){
       alliancesRef.document(aid).collection("chat").document().setData({
-        "sender" : uid,
+        "sender" : user.uid,
+        "displayName" : user.displayName,
         "message" : message,
         "timestamp" : Timestamp.now(),
       });

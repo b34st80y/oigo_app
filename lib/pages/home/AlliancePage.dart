@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oigo_app/datatypes/message.dart';
+import 'package:oigo_app/services/auth.dart';
 import 'package:oigo_app/widgets/chat_bubble.dart';
 import 'package:oigo_app/widgets/loading.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class AlliancePage extends StatelessWidget {
           RaisedButton(
             child: Text("Create New Alliance"),
             onPressed: () {
-              DatabaseService(uid: user.uid).createAlliance();
+              DatabaseService(user: user).createAlliance();
             },
           ),
           RaisedButton(
@@ -53,7 +54,7 @@ class AlliancePage extends StatelessWidget {
                             child: Text('Join'),
                             onPressed: () {
                               alliance = _textFieldController.text;
-                              DatabaseService(uid: user.uid).updateUserAlliance(alliance);
+                              DatabaseService(user: user).updateUserAlliance(alliance);
                               Navigator.of(context).pop();
                             },
                           ),
@@ -69,7 +70,7 @@ class AlliancePage extends StatelessWidget {
             child: Text("Share Alliance Code"),
             onPressed: () async {
               String alliance =
-                  await DatabaseService(uid: user.uid).getAlliance();
+                  await DatabaseService(user: user).getAlliance();
 
               _displayDialog(BuildContext context) async {
                 return showDialog(
@@ -103,15 +104,15 @@ class AlliancePage extends StatelessWidget {
           RaisedButton(
             child: Text("Send Message"),
             onPressed: () {
-              DatabaseService(uid: user.uid)
+              DatabaseService(user: user)
                   .sendAllianceMessage("Test Message!");
             },
           ),
           FutureBuilder(
-            future: DatabaseService(uid: user.uid).getAlliance(),
+            future: DatabaseService(user: user).getAlliance(),
             builder: (context, AsyncSnapshot<String> stringSnapshot) {
               return StreamBuilder(
-                stream: DatabaseService(uid: user.uid)
+                stream: DatabaseService(user: user)
                     .allianceChatStream(stringSnapshot.data),
                 builder: (context, chatSnapshot) {
                   if (chatSnapshot.hasData && chatSnapshot.data != null) {
@@ -124,6 +125,7 @@ class AlliancePage extends StatelessWidget {
                             Message message = Message(
                                 text: messageSnapshot.data['message'],
                                 sender: messageSnapshot.data['sender'],
+                                displayName: messageSnapshot.data['displayName'],
                                 timestamp: messageSnapshot.data['timestamp']);
                             if (message.sender == user.uid) {
                               return Row(
