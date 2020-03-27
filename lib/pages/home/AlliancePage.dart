@@ -28,17 +28,19 @@ class AlliancePage extends StatelessWidget {
             onPressed: () async {
               String alliance = "";
 
-              TextEditingController _textFieldController = TextEditingController();
+              TextEditingController _textFieldController =
+                  TextEditingController();
 
               _displayDialog(BuildContext context) async {
                 return showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('TextField in Dialog'),
+                        title: Text('Enter alliance code'),
                         content: TextField(
                           controller: _textFieldController,
-                          decoration: InputDecoration(hintText: "TextField in Dialog"),
+                          decoration:
+                              InputDecoration(hintText: "Alliance code"),
                         ),
                         actions: <Widget>[
                           FlatButton(
@@ -59,13 +61,15 @@ class AlliancePage extends StatelessWidget {
                       );
                     });
               }
+
               await _displayDialog(context);
             },
           ),
           RaisedButton(
             child: Text("Share Alliance Code"),
             onPressed: () async {
-              String alliance = await DatabaseService(uid: user.uid).getAlliance();
+              String alliance =
+                  await DatabaseService(uid: user.uid).getAlliance();
 
               _displayDialog(BuildContext context) async {
                 return showDialog(
@@ -92,8 +96,8 @@ class AlliancePage extends StatelessWidget {
                       );
                     });
               }
-              _displayDialog(context);
 
+              _displayDialog(context);
             },
           ),
           RaisedButton(
