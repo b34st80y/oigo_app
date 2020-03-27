@@ -54,7 +54,8 @@ class AlliancePage extends StatelessWidget {
                             child: Text('Join'),
                             onPressed: () {
                               alliance = _textFieldController.text;
-                              DatabaseService(user: user).updateUserAlliance(alliance);
+                              DatabaseService(user: user)
+                                  .updateUserAlliance(alliance);
                               Navigator.of(context).pop();
                             },
                           ),
@@ -69,8 +70,7 @@ class AlliancePage extends StatelessWidget {
           RaisedButton(
             child: Text("Share Alliance Code"),
             onPressed: () async {
-              String alliance =
-                  await DatabaseService(user: user).getAlliance();
+              String alliance = await DatabaseService(user: user).getAlliance();
 
               _displayDialog(BuildContext context) async {
                 return showDialog(
@@ -104,8 +104,7 @@ class AlliancePage extends StatelessWidget {
           RaisedButton(
             child: Text("Send Message"),
             onPressed: () {
-              DatabaseService(user: user)
-                  .sendAllianceMessage("Test Message!");
+              DatabaseService(user: user).sendAllianceMessage("Test Message!");
             },
           ),
           FutureBuilder(
@@ -125,7 +124,8 @@ class AlliancePage extends StatelessWidget {
                             Message message = Message(
                                 text: messageSnapshot.data['message'],
                                 sender: messageSnapshot.data['sender'],
-                                displayName: messageSnapshot.data['displayName'],
+                                displayName:
+                                    messageSnapshot.data['displayName'],
                                 timestamp: messageSnapshot.data['timestamp']);
                             if (message.sender == user.uid) {
                               return Row(

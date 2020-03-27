@@ -1,7 +1,10 @@
 import 'dart:collection';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oigo_app/resources/reasons.dart';
+import 'package:oigo_app/services/database.dart';
+import 'package:provider/provider.dart';
 
 class EmotionsPage extends StatefulWidget {
   @override
@@ -13,20 +16,20 @@ var sentence = ValueNotifier('...');
 var sentenceStack = SentenceStack();
 
 class SentenceStack extends ListBase<String> {
-  final List<String> l = [];
+  final List<String> list = [];
 
   SentenceStack();
 
   set length(int newLength) {
-    l.length = newLength;
+    list.length = newLength;
   }
 
-  int get length => l.length;
+  int get length => list.length;
 
-  String operator [](int index) => l[index];
+  String operator [](int index) => list[index];
 
   void operator []=(int index, String value) {
-    l[index] = value;
+    list[index] = value;
   }
 
   // custom methods
@@ -40,39 +43,11 @@ class SentenceStack extends ListBase<String> {
   }
 }
 
-class CustomButton extends StatelessWidget {
-  final Color color;
-  final String text;
-  final Function onTap;
-
-  CustomButton({this.color, this.text, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-          height: 60,
-          width: 150,
-          child: RaisedButton(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 17,
-              ),
-            ),
-            color: color,
-            onPressed: () {
-              onTap();
-            },
-          ),
-        ));
-  }
-}
-
 class _EmotionsPageState extends State<EmotionsPage> {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<FirebaseUser>(context);
+
     return Column(
       children: <Widget>[
         SizedBox(height: 10),
@@ -107,7 +82,20 @@ class _EmotionsPageState extends State<EmotionsPage> {
           builder: (context, value, child) {
             switch (value) {
               case 0:
-                return PrefixButtons();
+                return Column(
+                  children: <Widget>[
+                    PrefixButtons(),
+                    CustomButton(
+                      color: Colors.blue,
+                      text: "Send to Alliance",
+                      onTap: () {
+                        String message = sentence.value;
+                        DatabaseService(user: user)
+                            .sendAllianceMessage(message);
+                      },
+                    ),
+                  ],
+                );
               case 1:
                 return EmotionsButtons();
               case 2:
@@ -132,6 +120,36 @@ class _EmotionsPageState extends State<EmotionsPage> {
   }
 }
 
+class CustomButton extends StatelessWidget {
+  final Color color;
+  final String text;
+  final Function onTap;
+
+  CustomButton({this.color, this.text, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          height: 60,
+          width: 150,
+          child: RaisedButton(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 17,
+              ),
+            ),
+            color: color,
+            onPressed: () {
+              onTap();
+            },
+          ),
+        ));
+  }
+}
+
 class PrefixButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -151,7 +169,7 @@ class PrefixButtons extends StatelessWidget {
             ),
             CustomButton(
               text: "Do you feel...?",
-              color: Colors.blue,
+              color: Colors.purple,
               onTap: () {
                 sentenceStack.clear();
                 sentenceStack.add("Do you feel");
