@@ -32,23 +32,9 @@ class DatabaseService{
   createAlliance() {
     // create new alliance document
     var docRef = alliancesRef.document();
-    docRef.setData({
-      "members" : {
-        "user_1" : user.uid,
-      },
-    });
+    docRef.setData({});
     // link new alliance to user
     updateUserAlliance(docRef.documentID);
-  }
-
-  updateAllianceMembers(String uid1, String uid2, String uid3) {
-    alliancesRef.document().updateData({
-      "members" : {
-        "user_1" : uid1,
-        "user_2" : uid2,
-        "user_3" : uid3,
-      }
-    });
   }
 
   Future<String> getAlliance() async {
