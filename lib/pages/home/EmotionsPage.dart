@@ -48,74 +48,71 @@ class _EmotionsPageState extends State<EmotionsPage> {
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
 
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 10),
-        SizedBox(
-          height: 100,
-          child: Container(
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              color: Colors.grey,
-            ),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.send),
+        onPressed: (){
+          String message = sentence.value;
+          DatabaseService(user: user)
+              .sendAllianceMessage(message);
+        },
+      ),
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: 10),
+          SizedBox(
+            height: 100,
             child: Container(
               margin: EdgeInsets.all(5),
-              alignment: Alignment.center,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: Colors.white),
-              child: ValueListenableBuilder(
-                valueListenable: sentence,
-                builder: (context, value, child) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(value),
-                  );
-                },
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: Colors.grey,
+              ),
+              child: Container(
+                margin: EdgeInsets.all(5),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Colors.white),
+                child: ValueListenableBuilder(
+                  valueListenable: sentence,
+                  builder: (context, value, child) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(value),
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        ),
-        ValueListenableBuilder(
-          valueListenable: _state,
-          builder: (context, value, child) {
-            switch (value) {
-              case 0:
-                return Column(
-                  children: <Widget>[
-                    PrefixButtons(),
-                    CustomButton(
-                      color: Colors.blue,
-                      text: "Send to Alliance",
-                      onTap: () {
-                        String message = sentence.value;
-                        DatabaseService(user: user)
-                            .sendAllianceMessage(message);
-                      },
-                    ),
-                  ],
-                );
-              case 1:
-                return EmotionsButtons();
-              case 2:
-                return HappyReasonsButtons();
-              case 3:
-                return SadReasonsButtons();
-              case 4:
-                return AngryReasonsButtons();
-              case 5:
-                return FrustratedReasonsButtons();
-              case 6:
-                return WorriedReasonsButtons();
-              case 7:
-                return ScaredReasonsButtons();
-              default:
-                return Container(color: Colors.red, child: Text("ERROR"));
-            }
-          },
-        ),
-      ],
+          ValueListenableBuilder(
+            valueListenable: _state,
+            builder: (context, value, child) {
+              switch (value) {
+                case 0:
+                  return PrefixButtons();
+                case 1:
+                  return EmotionsButtons();
+                case 2:
+                  return HappyReasonsButtons();
+                case 3:
+                  return SadReasonsButtons();
+                case 4:
+                  return AngryReasonsButtons();
+                case 5:
+                  return FrustratedReasonsButtons();
+                case 6:
+                  return WorriedReasonsButtons();
+                case 7:
+                  return ScaredReasonsButtons();
+                default:
+                  return Container(color: Colors.red, child: Text("ERROR"));
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }
