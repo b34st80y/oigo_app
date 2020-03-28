@@ -4,6 +4,7 @@ import 'package:oigo_app/pages/home/settings/Help.dart';
 import 'package:oigo_app/pages/home/settings/Notifications.dart';
 import 'package:oigo_app/pages/home/settings/Alliance.dart';
 import 'package:oigo_app/pages/home/settings/About.dart';
+import 'package:oigo_app/pages/home/settings/Account.dart';
 
 final AuthService _auth = AuthService();
 
@@ -25,37 +26,40 @@ class SettingsPage extends StatelessWidget {
           SettingsInkwell(
             text: "Account",
             icon: Icon(Icons.settings),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push
+                (MaterialPageRoute(builder: (context) => Account()));
+            },
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
             text: "Alliance",
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Alliance()));
+              Navigator.of(context).push
+                (MaterialPageRoute(builder: (context) => Alliance()));
             },
           ),
           SettingsInkwell(
             icon: Icon(Icons.settings),
             text: "Notifications",
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => Notifications()));
+              Navigator.of(context).push
+                  (MaterialPageRoute(builder: (context) => Notifications()));
             },
           ),
           SettingsInkwell(
               icon: Icon(Icons.settings),
               text: "About",
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => About()));
+                Navigator.of(context).push
+                  (MaterialPageRoute(builder: (context) => About()));
               }),
           SettingsInkwell(
               icon: Icon(Icons.settings),
               text: "Help",
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Help()));
+                Navigator.of(context).push
+                    (MaterialPageRoute(builder: (context) => Help()));
               })
         ],
       ),
