@@ -21,6 +21,12 @@ class HomeState extends State<Home> {
     AlliancePage(),
   ];
 
+  final List<String> menuOptions = [
+    "Create New Alliance",
+    "Join Alliance From Code",
+    "Share Alliance Code",
+  ];
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
@@ -34,115 +40,100 @@ class HomeState extends State<Home> {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => SettingsPage()));
               }),
-          FlatButton(
-              child: Icon(Icons.more_horiz),
-              onPressed: () {
-                _displayDialog(BuildContext context) async {
-                  return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              RaisedButton(
-                                child: Text("Create New Alliance"),
+          PopupMenuButton(
+            onSelected: (String choice) async {
+              switch (choice) {
+                case "Create New Alliance":
+                  DatabaseService(user: user).createAlliance();
+                  break;
+                case "Join Alliance From Code":
+                  print('join alliance');
+                  TextEditingController _textFieldController =
+                      TextEditingController();
+                  String alliance;
+
+                  _displayDialog(BuildContext context) async {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Enter alliance code'),
+                            content: TextField(
+                              controller: _textFieldController,
+                              decoration:
+                                  InputDecoration(hintText: "Alliance code"),
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('Cancel'),
                                 onPressed: () {
-                                  DatabaseService(user: user).createAlliance();
+                                  Navigator.of(context).pop();
                                 },
                               ),
-                              RaisedButton(
-                                child: Text("Join Alliance from Code"),
-                                onPressed: () async {
-                                  String alliance;
-
-                                  TextEditingController _textFieldController =
-                                  TextEditingController();
-
-                                  _displayDialog(BuildContext context) async {
-                                    return showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Text('Enter alliance code'),
-                                            content: TextField(
-                                              controller: _textFieldController,
-                                              decoration:
-                                              InputDecoration(hintText: "Alliance code"),
-                                            ),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                child: Text('Cancel'),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              FlatButton(
-                                                child: Text('Join'),
-                                                onPressed: () {
-                                                  alliance = _textFieldController.text;
-                                                  DatabaseService(user: user)
-                                                      .updateUserAlliance(alliance);
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  }
-
-                                  await _displayDialog(context);
-                                },
-                              ),
-                              RaisedButton(
-                                child: Text("Share Alliance Code"),
-                                onPressed: () async {
-                                  String alliance = await DatabaseService(user: user).getAlliance();
-
-                                  _displayDialog(BuildContext context) async {
-                                    return showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Text('Alliance Code'),
-                                            content: SelectableText(alliance),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                child: Text('Cancel'),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              FlatButton(
-                                                child: Text('Copy'),
-                                                onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: alliance));
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  }
-
-                                  _displayDialog(context);
+                              FlatButton(
+                                child: Text('Join'),
+                                onPressed: () {
+                                  alliance = _textFieldController.text;
+                                  DatabaseService(user: user)
+                                      .updateUserAlliance(alliance);
+                                  Navigator.of(context).pop();
                                 },
                               ),
                             ],
-                          ),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text('Cancel'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                }
-                _displayDialog(context);
-              }),
+                          );
+                        });
+                  }
+
+                  await _displayDialog(context);
+                  break;
+
+                case "Share Alliance Code":
+                  String alliance =
+                      await DatabaseService(user: user).getAlliance();
+
+                  _displayDialog(BuildContext context) async {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Alliance Code'),
+                            content: SelectableText(alliance),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              FlatButton(
+                                child: Text('Copy'),
+                                onPressed: () {
+                                  Clipboard.setData(
+                                      ClipboardData(text: alliance));
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  }
+
+                  await _displayDialog(context);
+                  break;
+
+                default:
+                  break;
+              }
+            },
+            itemBuilder: (context) {
+              return menuOptions.map((choice) {
+                return PopupMenuItem(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
         ],
       ),
       body: _pageOptions[_selectedPage],
@@ -164,3 +155,4 @@ class HomeState extends State<Home> {
     );
   }
 }
+
