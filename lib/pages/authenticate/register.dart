@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oigo_app/services/auth.dart';
-
-import '../../loading.dart';
+import '../../widgets/loading.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function toggleView;
@@ -145,21 +144,21 @@ class _RegisterPageState extends State<RegisterPage> {
                         minWidth: double.infinity,
                         child: MaterialButton(
                           onPressed: () async {
-                            setState(() {
-                              error = 'registration currently disabled...';
-                            });
-//                            if (_formKey.currentState.validate()) {
-//                              setState(() => loading = true);
-//                              dynamic result =
-//                                  await _auth.registerWithEmailAndPassword(
-//                                      email, password);
-//                              if (result == null) {
-//                                setState(() {
-//                                  loading = false;
-//                                  error = 'Please enter a valid email';
-//                                });
-//                              }
-//                            }
+//                            setState(() {
+//                              error = 'registration currently disabled...';
+//                            });
+                            if (_formKey.currentState.validate()) {
+                              setState(() => loading = true);
+                              dynamic result =
+                                  await _auth.registerWithEmailAndPassword(
+                                      email, password);
+                              if (result == null) {
+                                setState(() {
+                                  loading = false;
+                                  error = 'Please enter a valid email';
+                                });
+                              }
+                            }
                           },
                           textColor: Colors.white,
                           color: Colors.purple,
