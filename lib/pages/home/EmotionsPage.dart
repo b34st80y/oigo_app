@@ -61,7 +61,7 @@ class _EmotionsPageState extends State<EmotionsPage> {
         children: <Widget>[
           SizedBox(height: 10),
           SizedBox(
-            height: 100,
+            height: 85,
             child: Container(
               margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
