@@ -27,39 +27,39 @@ class SettingsPage extends StatelessWidget {
             text: "Account",
             icon: Icon(Icons.account_box),
             onTap: () {
-              Navigator.of(context).push
-                (MaterialPageRoute(builder: (context) => Account()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Account()));
             },
           ),
           SettingsInkwell(
             icon: Icon(Icons.supervisor_account),
             text: "Alliance",
             onTap: () {
-              Navigator.of(context).push
-                (MaterialPageRoute(builder: (context) => Alliance()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Alliance()));
             },
           ),
           SettingsInkwell(
             icon: Icon(Icons.add_alert),
             text: "Notifications",
             onTap: () {
-              Navigator.of(context).push
-                  (MaterialPageRoute(builder: (context) => Notifications()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => Notifications()));
             },
           ),
           SettingsInkwell(
               icon: Icon(Icons.extension),
               text: "About",
               onTap: () {
-                Navigator.of(context).push
-                  (MaterialPageRoute(builder: (context) => About()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => About()));
               }),
           SettingsInkwell(
               icon: Icon(Icons.help),
               text: "Help",
               onTap: () {
-                Navigator.of(context).push
-                    (MaterialPageRoute(builder: (context) => Help()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Help()));
               })
         ],
       ),
