@@ -1,3 +1,5 @@
+import 'package:firebase_admin/firebase_admin.dart';
+import 'package:firebase_admin/src/credential.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:oigo_app/services/database.dart';
 
@@ -60,4 +62,12 @@ class AuthService {
     info.displayName = name;
     user.updateProfile(info);
   }
+
+  inviteUserByEmail(String email) async {
+    var app = FirebaseAdmin.instance.app();
+    var userRecords = await app.auth().getUserByEmail(email);
+    String uid = userRecords.uid;
+    print(uid);
+  }
+
 }
