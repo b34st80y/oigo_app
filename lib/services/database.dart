@@ -12,9 +12,7 @@ class DatabaseService{
   CollectionReference alliancesRef = db.collection("alliances");
 
   createUser() {
-    usersRef.document(user.uid).setData({
-      "settings" : {},
-    });
+    usersRef.document(user.uid).setData({});
   }
 
   Future<String> getUserName() async {
@@ -26,6 +24,18 @@ class DatabaseService{
   updateUserAlliance(String alliance) {
     usersRef.document(user.uid).updateData({
       "alliance" : alliance,
+    });
+  }
+
+  Future<bool> isTherapist() async {
+    DocumentSnapshot documentSnapshot = await usersRef.document(user.uid).collection("settings").document("therapist").get();
+    bool therapist = documentSnapshot.data["isTrue"];
+    return therapist;
+  }
+
+  upgradeUser(){
+    usersRef.document(user.uid).collection("settings").document("therapist").setData({
+      "isTrue" : true
     });
   }
   
