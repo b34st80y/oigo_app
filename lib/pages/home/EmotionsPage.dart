@@ -49,24 +49,18 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: SizedBox(
-          height: 60,
-          width: 150,
-          child: RaisedButton(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 17,
-              ),
-            ),
-            color: color,
-            onPressed: () {
-              onTap();
-            },
-          ),
-        ));
+    return RaisedButton(
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 17,
+        ),
+      ),
+      color: color,
+      onPressed: () {
+        onTap();
+      },
+    );
   }
 }
 
@@ -135,33 +129,36 @@ class _EmotionsPageState extends State<EmotionsPage> {
 class PrefixButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Wrap(
-          children: <Widget>[
-            CustomButton(
-              text: "I feel...",
-              color: Colors.green,
-              onTap: () {
-                sentenceStack.clear();
-                sentenceStack.add("I feel");
-                sentence.value = sentenceStack.constructSentence();
-                _state.value = 1;
-              },
-            ),
-            CustomButton(
-              text: "Do you feel...?",
-              color: Colors.blue,
-              onTap: () {
-                sentenceStack.clear();
-                sentenceStack.add("Do you feel");
-                sentence.value = sentenceStack.constructSentence();
-                _state.value = 1;
-              },
-            ),
-          ],
-        ),
-      ],
+    return Expanded(
+      child: GridView.count(
+        childAspectRatio: (150 / 60),
+        padding: EdgeInsets.all(20),
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        crossAxisCount: 2,
+        children: <Widget>[
+          CustomButton(
+            text: "I feel...",
+            color: Colors.green,
+            onTap: () {
+              sentenceStack.clear();
+              sentenceStack.add("I feel");
+              sentence.value = sentenceStack.constructSentence();
+              _state.value = 1;
+            },
+          ),
+          CustomButton(
+            text: "Do you feel...?",
+            color: Colors.blue,
+            onTap: () {
+              sentenceStack.clear();
+              sentenceStack.add("Do you feel");
+              sentence.value = sentenceStack.constructSentence();
+              _state.value = 1;
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -169,57 +166,64 @@ class PrefixButtons extends StatelessWidget {
 class EmotionsButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: <Widget>[
-        CustomButton(
-            color: Colors.yellow,
-            text: 'Happy',
-            onTap: () {
-              sentenceStack.add("happy");
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 2;
-            }),
-        CustomButton(
-            color: Colors.blue,
-            text: "Sad",
-            onTap: () {
-              sentenceStack.add("sad");
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 3;
-            }),
-        CustomButton(
-            color: Colors.red,
-            text: 'Angry',
-            onTap: () {
-              sentenceStack.add("angry");
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 4;
-            }),
-        CustomButton(
-            color: Colors.orange,
-            text: 'Frustrated',
-            onTap: () {
-              sentenceStack.add("frustrated");
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 5;
-            }),
-        CustomButton(
-            color: Colors.purple,
-            text: 'Worried',
-            onTap: () {
-              sentenceStack.add("worried");
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 6;
-            }),
-        CustomButton(
-            color: Colors.green,
-            text: 'Scared',
-            onTap: () {
-              sentenceStack.add("scared");
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 7;
-            }),
-      ],
+    return Expanded(
+      child: GridView.count(
+        childAspectRatio: (150 / 60),
+        padding: EdgeInsets.all(20),
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        crossAxisCount: 2,
+        children: <Widget>[
+          CustomButton(
+              color: Colors.yellow,
+              text: 'Happy',
+              onTap: () {
+                sentenceStack.add("happy");
+                sentence.value = sentenceStack.constructSentence();
+                _state.value = 2;
+              }),
+          CustomButton(
+              color: Colors.blue,
+              text: "Sad",
+              onTap: () {
+                sentenceStack.add("sad");
+                sentence.value = sentenceStack.constructSentence();
+                _state.value = 3;
+              }),
+          CustomButton(
+              color: Colors.red,
+              text: 'Angry',
+              onTap: () {
+                sentenceStack.add("angry");
+                sentence.value = sentenceStack.constructSentence();
+                _state.value = 4;
+              }),
+          CustomButton(
+              color: Colors.orange,
+              text: 'Frustrated',
+              onTap: () {
+                sentenceStack.add("frustrated");
+                sentence.value = sentenceStack.constructSentence();
+                _state.value = 5;
+              }),
+          CustomButton(
+              color: Colors.purple,
+              text: 'Worried',
+              onTap: () {
+                sentenceStack.add("worried");
+                sentence.value = sentenceStack.constructSentence();
+                _state.value = 6;
+              }),
+          CustomButton(
+              color: Colors.green,
+              text: 'Scared',
+              onTap: () {
+                sentenceStack.add("scared");
+                sentence.value = sentenceStack.constructSentence();
+                _state.value = 7;
+              }),
+        ],
+      ),
     );
   }
 }
@@ -229,21 +233,27 @@ class HappyReasonsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        children: reasons.map((reason) {
-          if (reason == "custom") {
-            return CustomReasonsButton.get(context);
-          }
-      return CustomButton(
-        text: reason,
-        color: Colors.blue[100],
-        onTap: () {
-          sentenceStack.add(reason);
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },
-      );
-    }).toList());
+    return Expanded(
+        child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
   }
 }
 
@@ -252,21 +262,27 @@ class SadReasonsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        children: reasons.map((reason) {
-          if (reason == "custom") {
-            return CustomReasonsButton.get(context);
-          }
-      return CustomButton(
-        text: reason,
-        color: Colors.blue[100],
-        onTap: () {
-          sentenceStack.add(reason);
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },
-      );
-    }).toList());
+    return Expanded(
+        child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
   }
 }
 
@@ -275,21 +291,23 @@ class AngryReasonsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        children: reasons.map((reason) {
-          if (reason == "custom") {
-            return CustomReasonsButton.get(context);
-          }
-      return CustomButton(
-        text: reason,
-        color: Colors.blue[100],
-        onTap: () {
-          sentenceStack.add(reason);
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },
-      );
-    }).toList());
+    return Expanded(
+        child: GridView.count(
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
   }
 }
 
@@ -298,21 +316,27 @@ class FrustratedReasonsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        children: reasons.map((reason) {
-          if (reason == "custom") {
-            return CustomReasonsButton.get(context);
-          }
-      return CustomButton(
-        text: reason,
-        color: Colors.blue[100],
-        onTap: () {
-          sentenceStack.add(reason);
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },
-      );
-    }).toList());
+    return Expanded(
+        child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
   }
 }
 
@@ -321,21 +345,27 @@ class WorriedReasonsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        children: reasons.map((reason) {
-          if (reason == "custom") {
-            return CustomReasonsButton.get(context);
-          }
-      return CustomButton(
-        text: reason,
-        color: Colors.blue[100],
-        onTap: () {
-          sentenceStack.add(reason);
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },
-      );
-    }).toList());
+    return Expanded(
+        child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
   }
 }
 
@@ -344,43 +374,49 @@ class ScaredReasonsButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-        children: reasons.map((reason) {
-          if (reason == "custom") {
-            return CustomReasonsButton.get(context);
-          }
-          return CustomButton(
-            text: reason,
-            color: Colors.blue[100],
-            onTap: () {
-              sentenceStack.add(reason);
-              sentence.value = sentenceStack.constructSentence();
-              _state.value = 0;
-            },
-          );
-        }).toList());
+    return Expanded(
+        child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
   }
 }
 
 class CustomReasonsButton {
   static CustomButton get(BuildContext context) {
     return CustomButton(
-      text: "specify...",
-      color: Colors.blue[100],
-      onTap: () async {
-        final String creason = await _asyncInputDialog(context);
-        sentenceStack.add(creason);
-        sentence.value = sentenceStack.constructSentence();
-        _state.value = 0;
-      }
-    );
+        text: "specify...",
+        color: Colors.blue[100],
+        onTap: () async {
+          final String reason = await _asyncInputDialog(context);
+          sentenceStack.add(reason);
+          sentence.value = sentenceStack.constructSentence();
+          _state.value = 0;
+        });
   }
 
   static Future<String> _asyncInputDialog(BuildContext context) async {
-    String creason = '';
+    String reason = '';
     return showDialog<String>(
       context: context,
-      barrierDismissible: false, // dialog is dismissible with a tap on the barrier
+      barrierDismissible: false,
+      // dialog is dismissible with a tap on the barrier
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Why are you feeling this way?'),
@@ -388,18 +424,18 @@ class CustomReasonsButton {
             children: <Widget>[
               new Expanded(
                   child: new TextField(
-                    autofocus: true,
-                    onChanged: (value) {
-                      creason = value;
-                    },
-                  ))
+                autofocus: true,
+                onChanged: (value) {
+                  reason = value;
+                },
+              ))
             ],
           ),
           actions: <Widget>[
             FlatButton(
               child: Text('Ok'),
               onPressed: () {
-                Navigator.of(context).pop(creason);
+                Navigator.of(context).pop(reason);
               },
             ),
           ],
