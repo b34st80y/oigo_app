@@ -64,6 +64,37 @@ class CustomButton extends StatelessWidget {
   }
 }
 
+class ReasonsButtonsView extends StatelessWidget {
+  final List<String> reasons;
+
+  ReasonsButtonsView({this.reasons});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2,
+            children: reasons.map((reason) {
+              if (reason == "custom") {
+                return CustomReasonsButton.get(context);
+              }
+              return CustomButton(
+                text: reason,
+                color: Colors.blue[100],
+                onTap: () {
+                  sentenceStack.add(reason);
+                  sentence.value = sentenceStack.constructSentence();
+                  _state.value = 0;
+                },
+              );
+            }).toList()));
+  }
+}
+
 class _EmotionsPageState extends State<EmotionsPage> {
   @override
   Widget build(BuildContext context) {
@@ -105,17 +136,17 @@ class _EmotionsPageState extends State<EmotionsPage> {
               case 1:
                 return EmotionsButtons();
               case 2:
-                return AngryReasonsButtons();
+                return ReasonsButtonsView(reasons: Reasons.happyReasons);
               case 3:
-                return SadReasonsButtons();
+                return ReasonsButtonsView(reasons: Reasons.sadReasons);
               case 4:
-                return AngryReasonsButtons();
+                return ReasonsButtonsView(reasons: Reasons.angryReasons);
               case 5:
-                return FrustratedReasonsButtons();
+                return ReasonsButtonsView(reasons: Reasons.frustratedReasons);
               case 6:
-                return WorriedReasonsButtons();
+                return ReasonsButtonsView(reasons: Reasons.worriedReasons);
               case 7:
-                return ScaredReasonsButtons();
+                return ReasonsButtonsView(reasons: Reasons.scaredReasons);
               default:
                 return Container(color: Colors.red, child: Text("ERROR"));
             }
@@ -225,180 +256,6 @@ class EmotionsButtons extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class HappyReasonsButtons extends StatelessWidget {
-  final reasons = Reasons.happyReasons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-            childAspectRatio: (150 / 60),
-            padding: EdgeInsets.all(20),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: reasons.map((reason) {
-              if (reason == "custom") {
-                return CustomReasonsButton.get(context);
-              }
-              return CustomButton(
-                text: reason,
-                color: Colors.blue[100],
-                onTap: () {
-                  sentenceStack.add(reason);
-                  sentence.value = sentenceStack.constructSentence();
-                  _state.value = 0;
-                },
-              );
-            }).toList()));
-  }
-}
-
-class SadReasonsButtons extends StatelessWidget {
-  final reasons = Reasons.sadReasons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-            childAspectRatio: (150 / 60),
-            padding: EdgeInsets.all(20),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: reasons.map((reason) {
-              if (reason == "custom") {
-                return CustomReasonsButton.get(context);
-              }
-              return CustomButton(
-                text: reason,
-                color: Colors.blue[100],
-                onTap: () {
-                  sentenceStack.add(reason);
-                  sentence.value = sentenceStack.constructSentence();
-                  _state.value = 0;
-                },
-              );
-            }).toList()));
-  }
-}
-
-class AngryReasonsButtons extends StatelessWidget {
-  final reasons = Reasons.angryReasons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-            childAspectRatio: (150 / 60),
-            padding: EdgeInsets.all(20),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: reasons.map((reason) {
-              if (reason == "custom") {
-                return CustomReasonsButton.get(context);
-              }
-              return CustomButton(
-                text: reason,
-                color: Colors.blue[100],
-                onTap: () {
-                  sentenceStack.add(reason);
-                  sentence.value = sentenceStack.constructSentence();
-                  _state.value = 0;
-                },
-              );
-            }).toList()));
-  }
-}
-
-class FrustratedReasonsButtons extends StatelessWidget {
-  final reasons = Reasons.frustratedReasons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-            childAspectRatio: (150 / 60),
-            padding: EdgeInsets.all(20),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: reasons.map((reason) {
-              if (reason == "custom") {
-                return CustomReasonsButton.get(context);
-              }
-              return CustomButton(
-                text: reason,
-                color: Colors.blue[100],
-                onTap: () {
-                  sentenceStack.add(reason);
-                  sentence.value = sentenceStack.constructSentence();
-                  _state.value = 0;
-                },
-              );
-            }).toList()));
-  }
-}
-
-class WorriedReasonsButtons extends StatelessWidget {
-  final reasons = Reasons.worriedReasons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-            childAspectRatio: (150 / 60),
-            padding: EdgeInsets.all(20),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: reasons.map((reason) {
-              if (reason == "custom") {
-                return CustomReasonsButton.get(context);
-              }
-              return CustomButton(
-                text: reason,
-                color: Colors.blue[100],
-                onTap: () {
-                  sentenceStack.add(reason);
-                  sentence.value = sentenceStack.constructSentence();
-                  _state.value = 0;
-                },
-              );
-            }).toList()));
-  }
-}
-
-class ScaredReasonsButtons extends StatelessWidget {
-  final reasons = Reasons.scaredReasons;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: GridView.count(
-            childAspectRatio: (150 / 60),
-            padding: EdgeInsets.all(20),
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            crossAxisCount: 2,
-            children: reasons.map((reason) {
-              if (reason == "custom") {
-                return CustomReasonsButton.get(context);
-              }
-              return CustomButton(
-                text: reason,
-                color: Colors.blue[100],
-                onTap: () {
-                  sentenceStack.add(reason);
-                  sentence.value = sentenceStack.constructSentence();
-                  _state.value = 0;
-                },
-              );
-            }).toList()));
   }
 }
 
