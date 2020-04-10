@@ -153,7 +153,7 @@ class CustomButtonsView extends StatelessWidget {
             padding: EdgeInsets.all(20),
             crossAxisSpacing: 20,
             mainAxisSpacing: 20,
-            crossAxisCount: 2,
+            crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 4 : 2,
             children: reasons.map((reason) {
               if (reason == "custom") {
                 return CustomReasonsButton.get(context);
@@ -217,7 +217,7 @@ class EmotionsButtons extends StatelessWidget {
         padding: EdgeInsets.all(20),
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
-        crossAxisCount: 2,
+        crossAxisCount: MediaQuery.of(context).orientation == Orientation.landscape ? 4 : 2,
         children: <Widget>[
           CustomButton(
               color: Colors.yellow,
