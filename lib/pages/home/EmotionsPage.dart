@@ -105,7 +105,7 @@ class _EmotionsPageState extends State<EmotionsPage> {
               case 1:
                 return EmotionsButtons();
               case 2:
-                return HappyReasonsButtons();
+                return AngryReasonsButtons();
               case 3:
                 return SadReasonsButtons();
               case 4:
@@ -293,6 +293,10 @@ class AngryReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: GridView.count(
+            childAspectRatio: (150 / 60),
+            padding: EdgeInsets.all(20),
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
             crossAxisCount: 2,
             children: reasons.map((reason) {
               if (reason == "custom") {
