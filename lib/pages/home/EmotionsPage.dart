@@ -6,11 +6,6 @@ import 'package:oigo_app/resources/reasons.dart';
 import 'package:oigo_app/services/database.dart';
 import 'package:provider/provider.dart';
 
-class EmotionsPage extends StatefulWidget {
-  @override
-  _EmotionsPageState createState() => _EmotionsPageState();
-}
-
 var _state = ValueNotifier(0);
 var sentence = ValueNotifier('...');
 var sentenceStack = SentenceStack();
@@ -43,6 +38,11 @@ class SentenceStack extends ListBase<String> {
   }
 }
 
+class EmotionsPage extends StatefulWidget {
+  @override
+  _EmotionsPageState createState() => _EmotionsPageState();
+}
+
 class _EmotionsPageState extends State<EmotionsPage> {
   @override
   Widget build(BuildContext context) {
@@ -51,10 +51,9 @@ class _EmotionsPageState extends State<EmotionsPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.send),
-        onPressed: (){
+        onPressed: () {
           String message = sentence.value;
-          DatabaseService(user: user)
-              .sendAllianceMessage(message);
+          DatabaseService(user: user).sendAllianceMessage(message);
         },
       ),
       body: Column(
@@ -91,21 +90,21 @@ class _EmotionsPageState extends State<EmotionsPage> {
             builder: (context, value, child) {
               switch (value) {
                 case 0:
-                 return PrefixButtons();
+                  return PrefixButtons();
                 case 1:
                   return EmotionsButtons();
                 case 2:
-                  return ReasonsButtonsView(reasons: Reasons.happyReasons);
+                  return CustomButtonsView(reasons: Reasons.happyReasons);
                 case 3:
-                  return ReasonsButtonsView(reasons: Reasons.sadReasons);
+                  return CustomButtonsView(reasons: Reasons.sadReasons);
                 case 4:
-                  return ReasonsButtonsView(reasons: Reasons.angryReasons);
+                  return CustomButtonsView(reasons: Reasons.angryReasons);
                 case 5:
-                  return ReasonsButtonsView(reasons: Reasons.frustratedReasons);
+                  return CustomButtonsView(reasons: Reasons.frustratedReasons);
                 case 6:
-                  return ReasonsButtonsView(reasons: Reasons.worriedReasons);
+                  return CustomButtonsView(reasons: Reasons.worriedReasons);
                 case 7:
-                  return ReasonsButtonsView(reasons: Reasons.scaredReasons);
+                  return CustomButtonsView(reasons: Reasons.scaredReasons);
                 default:
                   return Container(color: Colors.red, child: Text("ERROR"));
               }
@@ -141,10 +140,10 @@ class CustomButton extends StatelessWidget {
   }
 }
 
-class ReasonsButtonsView extends StatelessWidget {
+class CustomButtonsView extends StatelessWidget {
   final List<String> reasons;
 
-  ReasonsButtonsView({this.reasons});
+  CustomButtonsView({this.reasons});
 
   @override
   Widget build(BuildContext context) {
