@@ -231,6 +231,9 @@ class HappyReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
         children: reasons.map((reason) {
+          if (reason == "custom") {
+            return CustomReasonsButton.get(context);
+          }
       return CustomButton(
         text: reason,
         color: Colors.blue[100],
@@ -251,6 +254,9 @@ class SadReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
         children: reasons.map((reason) {
+          if (reason == "custom") {
+            return CustomReasonsButton.get(context);
+          }
       return CustomButton(
         text: reason,
         color: Colors.blue[100],
@@ -271,6 +277,9 @@ class AngryReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
         children: reasons.map((reason) {
+          if (reason == "custom") {
+            return CustomReasonsButton.get(context);
+          }
       return CustomButton(
         text: reason,
         color: Colors.blue[100],
@@ -291,6 +300,9 @@ class FrustratedReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
         children: reasons.map((reason) {
+          if (reason == "custom") {
+            return CustomReasonsButton.get(context);
+          }
       return CustomButton(
         text: reason,
         color: Colors.blue[100],
@@ -311,6 +323,9 @@ class WorriedReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
         children: reasons.map((reason) {
+          if (reason == "custom") {
+            return CustomReasonsButton.get(context);
+          }
       return CustomButton(
         text: reason,
         color: Colors.blue[100],
@@ -331,15 +346,65 @@ class ScaredReasonsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
         children: reasons.map((reason) {
-      return CustomButton(
-        text: reason,
-        color: Colors.blue[100],
-        onTap: () {
-          sentenceStack.add(reason);
-          sentence.value = sentenceStack.constructSentence();
-          _state.value = 0;
-        },
-      );
-    }).toList());
+          if (reason == "custom") {
+            return CustomReasonsButton.get(context);
+          }
+          return CustomButton(
+            text: reason,
+            color: Colors.blue[100],
+            onTap: () {
+              sentenceStack.add(reason);
+              sentence.value = sentenceStack.constructSentence();
+              _state.value = 0;
+            },
+          );
+        }).toList());
+  }
+}
+
+class CustomReasonsButton {
+  static CustomButton get(BuildContext context) {
+    return CustomButton(
+      text: "specify...",
+      color: Colors.blue[100],
+      onTap: () async {
+        final String creason = await _asyncInputDialog(context);
+        sentenceStack.add(creason);
+        sentence.value = sentenceStack.constructSentence();
+        _state.value = 0;
+      }
+    );
+  }
+
+  static Future<String> _asyncInputDialog(BuildContext context) async {
+    String creason = '';
+    return showDialog<String>(
+      context: context,
+      barrierDismissible: false, // dialog is dismissible with a tap on the barrier
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Why are you feeling this way?'),
+          content: new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new TextField(
+                    autofocus: true,
+                    onChanged: (value) {
+                      creason = value;
+                    },
+                  ))
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop(creason);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
