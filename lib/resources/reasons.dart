@@ -8,6 +8,7 @@ class Reasons {
     "because you trust me",
     "because I'm going to school",
     "because I'm making a friend",
+    "custom",
   ];
 
   static var sadReasons = [
@@ -19,6 +20,7 @@ class Reasons {
     "because I never say the right things.",
     "because nobody likes me.",
     "I am alone.",
+    "custom",
   ];
 
   static var angryReasons = [
@@ -30,6 +32,7 @@ class Reasons {
     "because you are being mean.",
     "about what you are doing.",
     "because you lied to me.",
+    "custom",
   ];
 
   static var frustratedReasons = [
@@ -41,6 +44,7 @@ class Reasons {
     "when I can't exppress myself.",
     "when I can't understand things.",
     "that I'm not included.",
+    "custom",
   ];
 
   static var worriedReasons = [
@@ -51,6 +55,7 @@ class Reasons {
     "because I can't talk to people.",
     "because I'm not good at sports.",
     "because people aren't nice to me.",
+    "custom",
   ];
 
   static var scaredReasons = [
@@ -60,7 +65,8 @@ class Reasons {
     "of being alone.",
     "of disappointing you.",
     "because I am all alone.",
-    "because I think I will fail."
+    "because I think I will fail.",
+    "custom",
   ];
 
 }
