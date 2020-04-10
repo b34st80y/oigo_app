@@ -1,7 +1,10 @@
 import 'dart:collection';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oigo_app/resources/reasons.dart';
+import 'package:oigo_app/services/database.dart';
+import 'package:provider/provider.dart';
 
 class EmotionsPage extends StatefulWidget {
   @override
@@ -13,20 +16,20 @@ var sentence = ValueNotifier('...');
 var sentenceStack = SentenceStack();
 
 class SentenceStack extends ListBase<String> {
-  final List<String> l = [];
+  final List<String> list = [];
 
   SentenceStack();
 
   set length(int newLength) {
-    l.length = newLength;
+    list.length = newLength;
   }
 
-  int get length => l.length;
+  int get length => list.length;
 
-  String operator [](int index) => l[index];
+  String operator [](int index) => list[index];
 
   void operator []=(int index, String value) {
-    l[index] = value;
+    list[index] = value;
   }
 
   // custom methods
@@ -37,6 +40,80 @@ class SentenceStack extends ListBase<String> {
       temp += " ";
     });
     return temp;
+  }
+}
+
+class _EmotionsPageState extends State<EmotionsPage> {
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<FirebaseUser>(context);
+
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.send),
+        onPressed: (){
+          String message = sentence.value;
+          DatabaseService(user: user)
+              .sendAllianceMessage(message);
+        },
+      ),
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: 10),
+          SizedBox(
+            height: 85,
+            child: Container(
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: Colors.grey,
+              ),
+              child: Container(
+                margin: EdgeInsets.all(5),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Colors.white),
+                child: ValueListenableBuilder(
+                  valueListenable: sentence,
+                  builder: (context, value, child) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(value),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          ValueListenableBuilder(
+            valueListenable: _state,
+            builder: (context, value, child) {
+              switch (value) {
+                case 0:
+                 return PrefixButtons();
+                case 1:
+                  return EmotionsButtons();
+                case 2:
+                  return ReasonsButtonsView(reasons: Reasons.happyReasons);
+                case 3:
+                  return ReasonsButtonsView(reasons: Reasons.sadReasons);
+                case 4:
+                  return ReasonsButtonsView(reasons: Reasons.angryReasons);
+                case 5:
+                  return ReasonsButtonsView(reasons: Reasons.frustratedReasons);
+                case 6:
+                  return ReasonsButtonsView(reasons: Reasons.worriedReasons);
+                case 7:
+                  return ReasonsButtonsView(reasons: Reasons.scaredReasons);
+                default:
+                  return Container(color: Colors.red, child: Text("ERROR"));
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -92,68 +169,6 @@ class ReasonsButtonsView extends StatelessWidget {
                 },
               );
             }).toList()));
-  }
-}
-
-class _EmotionsPageState extends State<EmotionsPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(height: 10),
-        SizedBox(
-          height: 100,
-          child: Container(
-            margin: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              color: Colors.grey,
-            ),
-            child: Container(
-              margin: EdgeInsets.all(5),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: Colors.white),
-              child: ValueListenableBuilder(
-                valueListenable: sentence,
-                builder: (context, value, child) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(value),
-                  );
-                },
-              ),
-            ),
-          ),
-        ),
-        ValueListenableBuilder(
-          valueListenable: _state,
-          builder: (context, value, child) {
-            switch (value) {
-              case 0:
-                return PrefixButtons();
-              case 1:
-                return EmotionsButtons();
-              case 2:
-                return ReasonsButtonsView(reasons: Reasons.happyReasons);
-              case 3:
-                return ReasonsButtonsView(reasons: Reasons.sadReasons);
-              case 4:
-                return ReasonsButtonsView(reasons: Reasons.angryReasons);
-              case 5:
-                return ReasonsButtonsView(reasons: Reasons.frustratedReasons);
-              case 6:
-                return ReasonsButtonsView(reasons: Reasons.worriedReasons);
-              case 7:
-                return ReasonsButtonsView(reasons: Reasons.scaredReasons);
-              default:
-                return Container(color: Colors.red, child: Text("ERROR"));
-            }
-          },
-        ),
-      ],
-    );
   }
 }
 
