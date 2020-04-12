@@ -1,5 +1,3 @@
-import 'package:firebase_admin/firebase_admin.dart';
-import 'package:firebase_admin/src/credential.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:oigo_app/services/auth.dart';
@@ -11,9 +9,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    FirebaseAdmin.instance.initializeApp(AppOptions(
-        credential: Credentials.applicationDefault(),
-        projectId: 'Admin-Project'), "unique_name");
     return MyAppState();
   }
 }

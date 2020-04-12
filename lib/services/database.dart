@@ -12,7 +12,9 @@ class DatabaseService{
   CollectionReference alliancesRef = db.collection("alliances");
 
   createUser() {
-    usersRef.document(user.uid).setData({});
+    usersRef.document(user.uid).setData({
+      "email" : user.email
+    });
   }
 
   Future<String> getUserName() async {
@@ -23,6 +25,12 @@ class DatabaseService{
 
   updateUserAlliance(String alliance) {
     usersRef.document(user.uid).updateData({
+      "alliance" : alliance,
+    });
+  }
+
+  updateOtherUserAlliance(String alliance, String otherUserID) {
+    usersRef.document(otherUserID).updateData({
       "alliance" : alliance,
     });
   }
@@ -66,6 +74,16 @@ class DatabaseService{
 
   Stream<QuerySnapshot> allianceChatStream(aid){
     return alliancesRef.document(aid).collection("chat").orderBy('timestamp').snapshots();
+  }
+
+  inviteUserByEmail(String email) async {
+    Query query = usersRef.where("email", isEqualTo: email);
+    QuerySnapshot querySnap = await query.getDocuments();
+    DocumentSnapshot docSnap = querySnap.documents[0];
+    String uid = docSnap.documentID;
+
+    String allianceCode = await getAlliance();
+    updateOtherUserAlliance(allianceCode, uid);
   }
 
 }
