@@ -96,6 +96,8 @@ class DatabaseService {
     String uid = docSnap.documentID;
 
     String allianceCode = await getAlliance();
+    print(allianceCode);
+    print(uid);
     updateOtherUserAlliance(allianceCode, uid);
   }
 }

@@ -159,7 +159,7 @@ class HomeState extends State<Home> {
                                         onPressed: () {
                                           email =
                                               _textFieldController.text;
-                                          DatabaseService().inviteUserByEmail(email);
+                                          DatabaseService(user: user).inviteUserByEmail(email);
                                           Navigator.of(context).pop();
                                         },
                                       ),
