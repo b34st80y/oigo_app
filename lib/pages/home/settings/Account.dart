@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:oigo_app/services/auth.dart';
+import 'package:oigo_app/services/database.dart';
+import 'package:oigo_app/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 class Account extends StatefulWidget {
@@ -11,7 +13,6 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
-    print("rebuilt");
     var user = Provider.of<FirebaseUser>(context);
     return MaterialApp(
         title: 'Account',
@@ -49,7 +50,8 @@ class _AccountState extends State<Account> {
                                 child: Text('Save'),
                                 onPressed: () async {
                                   newName = _textFieldController.text;
-                                  await AuthService().updateDisplayName(newName);
+                                  await AuthService()
+                                      .updateDisplayName(newName);
                                   setState(() {
                                     user.reload();
                                   });
@@ -60,11 +62,73 @@ class _AccountState extends State<Account> {
                           );
                         });
                   }
-                  await _displayDialog(context);
 
+                  await _displayDialog(context);
                 },
               ),
-              Text("(Changes will not appear until reloading the app)")
+              FutureBuilder(
+                future: DatabaseService(user: user).isTherapist(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData)
+                    return Text("Therapist : " + snapshot.data.toString());
+                  else
+                    return Text("Therapist : ");
+                },
+              ),
+              RaisedButton(
+                child: Text('Upgrade to Therapist'),
+                onPressed: () {
+                  _displayDialog(BuildContext context) async {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return FutureBuilder(
+                              future: DatabaseService(user: user).isTherapist(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return !snapshot.data
+                                      ? AlertDialog(
+                                          title: Text(
+                                              'Are you sure you would like to upgrade?'),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('Cancel'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            FlatButton(
+                                              child: Text('Upgrade'),
+                                              onPressed: () async {
+                                                DatabaseService(user: user)
+                                                    .upgradeUser();
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        )
+                                      : AlertDialog(
+                                          title: Text(
+                                              "Your account is already a Therapist account!"),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text('OK'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                } else
+                                  return Loading();
+                              });
+                        });
+                  }
+
+                  _displayDialog(context);
+                },
+              ),
+              Text("(Changes will not appear until reloading the app)"),
             ],
           ),
         ));

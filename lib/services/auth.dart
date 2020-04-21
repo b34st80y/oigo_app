@@ -60,4 +60,5 @@ class AuthService {
     info.displayName = name;
     user.updateProfile(info);
   }
+
 }

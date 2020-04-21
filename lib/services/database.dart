@@ -13,7 +13,7 @@ class DatabaseService{
 
   createUser() {
     usersRef.document(user.uid).setData({
-      "settings" : {},
+      "email" : user.email
     });
   }
 
@@ -26,6 +26,24 @@ class DatabaseService{
   updateUserAlliance(String alliance) {
     usersRef.document(user.uid).updateData({
       "alliance" : alliance,
+    });
+  }
+
+  updateOtherUserAlliance(String alliance, String otherUserID) {
+    usersRef.document(otherUserID).updateData({
+      "alliance" : alliance,
+    });
+  }
+
+  Future<bool> isTherapist() async {
+    DocumentSnapshot documentSnapshot = await usersRef.document(user.uid).collection("settings").document("therapist").get();
+    bool therapist = documentSnapshot.data["isTrue"];
+    return therapist;
+  }
+
+  upgradeUser(){
+    usersRef.document(user.uid).collection("settings").document("therapist").setData({
+      "isTrue" : true
     });
   }
   
@@ -56,6 +74,16 @@ class DatabaseService{
 
   Stream<QuerySnapshot> allianceChatStream(aid){
     return alliancesRef.document(aid).collection("chat").orderBy('timestamp').snapshots();
+  }
+
+  inviteUserByEmail(String email) async {
+    Query query = usersRef.where("email", isEqualTo: email);
+    QuerySnapshot querySnap = await query.getDocuments();
+    DocumentSnapshot docSnap = querySnap.documents[0];
+    String uid = docSnap.documentID;
+
+    String allianceCode = await getAlliance();
+    updateOtherUserAlliance(allianceCode, uid);
   }
 
 }
