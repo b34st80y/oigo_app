@@ -20,7 +20,7 @@ class _AccountState extends State<Account> {
           appBar: AppBar(title: Text('Account')),
           body: Column(
             children: <Widget>[
-              Text("Display Name: " + user.displayName),
+              user.displayName == null? Text("Display Name: ") : Text("Display Name: " + user.displayName),
               RaisedButton(
                 child: Text("Change Display Name"),
                 onPressed: () async {

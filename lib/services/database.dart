@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class DatabaseService{
+class DatabaseService {
   static final db = Firestore.instance;
+
   // uid = User ID, aid = Alliance ID
   final FirebaseUser user;
 
@@ -12,8 +13,10 @@ class DatabaseService{
   CollectionReference alliancesRef = db.collection("alliances");
 
   createUser() {
-    usersRef.document(user.uid).setData({
-      "email" : user.email
+    DocumentReference documentReference = usersRef.document(user.uid);
+    documentReference.setData({"email": user.email});
+    documentReference.collection("settings").document("therapist").setData({
+      "isTrue" : false
     });
   }
 
@@ -25,28 +28,34 @@ class DatabaseService{
 
   updateUserAlliance(String alliance) {
     usersRef.document(user.uid).updateData({
-      "alliance" : alliance,
+      "alliance": alliance,
     });
   }
 
   updateOtherUserAlliance(String alliance, String otherUserID) {
     usersRef.document(otherUserID).updateData({
-      "alliance" : alliance,
+      "alliance": alliance,
     });
   }
 
   Future<bool> isTherapist() async {
-    DocumentSnapshot documentSnapshot = await usersRef.document(user.uid).collection("settings").document("therapist").get();
+    DocumentSnapshot documentSnapshot = await usersRef
+        .document(user.uid)
+        .collection("settings")
+        .document("therapist")
+        .get();
     bool therapist = documentSnapshot.data["isTrue"];
     return therapist;
   }
 
-  upgradeUser(){
-    usersRef.document(user.uid).collection("settings").document("therapist").setData({
-      "isTrue" : true
-    });
+  upgradeUser() {
+    usersRef
+        .document(user.uid)
+        .collection("settings")
+        .document("therapist")
+        .setData({"isTrue": true});
   }
-  
+
   createAlliance() {
     // create new alliance document
     var docRef = alliancesRef.document();
@@ -62,18 +71,22 @@ class DatabaseService{
   }
 
   sendAllianceMessage(String message) {
-    getAlliance().then((aid){
+    getAlliance().then((aid) {
       alliancesRef.document(aid).collection("chat").document().setData({
-        "sender" : user.uid,
-        "displayName" : user.displayName,
-        "message" : message,
-        "timestamp" : Timestamp.now(),
+        "sender": user.uid,
+        "displayName": user.displayName,
+        "message": message,
+        "timestamp": Timestamp.now(),
       });
     });
   }
 
-  Stream<QuerySnapshot> allianceChatStream(aid){
-    return alliancesRef.document(aid).collection("chat").orderBy('timestamp').snapshots();
+  Stream<QuerySnapshot> allianceChatStream(aid) {
+    return alliancesRef
+        .document(aid)
+        .collection("chat")
+        .orderBy('timestamp')
+        .snapshots();
   }
 
   inviteUserByEmail(String email) async {
@@ -85,5 +98,4 @@ class DatabaseService{
     String allianceCode = await getAlliance();
     updateOtherUserAlliance(allianceCode, uid);
   }
-
 }

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:oigo_app/services/database.dart';
 
 class AuthService {
@@ -37,6 +38,9 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+      UserUpdateInfo info = UserUpdateInfo();
+      info.displayName = email;
+      user.updateProfile(info);
       DatabaseService(user: user).createUser();
       return user;
     } catch (e) {

@@ -141,21 +141,21 @@ class _LoginPageState extends State<LoginPage> {
                           widget.toggleView();
                         },
                       ),
-                      FlatButton(
-                        child: Text("Anonymous Sign-In",
-                            style: TextStyle(color: Colors.purpleAccent)),
-                        onPressed: () async {
-                          setState(() => loading = true);
-                          dynamic result = await _auth.signInAnon();
-                          if (result == null) {
-                            print('error signing in');
-                            setState(() => loading = false);
-                          } else {
-                            print('signed in');
-                            print(result.uid);
-                          }
-                        },
-                      )
+//                      FlatButton(
+//                        child: Text("Anonymous Sign-In",
+//                            style: TextStyle(color: Colors.purpleAccent)),
+//                        onPressed: () async {
+//                          setState(() => loading = true);
+//                          dynamic result = await _auth.signInAnon();
+//                          if (result == null) {
+//                            print('error signing in');
+//                            setState(() => loading = false);
+//                          } else {
+//                            print('signed in');
+//                            print(result.uid);
+//                          }
+//                        },
+//                      )
                     ],
                   ),
                 ),
