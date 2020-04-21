@@ -1,16 +1,9 @@
-# oigo_app
+# OiGO App
 
-A new Flutter application.
+OiGO is a cross-platform app that assists with communication and expression of emotions for people with disabilities. 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To install flutter to test and run all versions of the app, please refer to the [Flutter Documentation](https://flutter.dev/docs/get-started/install) which has many comprehensive walkthroughs of how to set up your environment with flutter and your IDE of choice.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Once flutter is properly installed, clone the oigo_app repository from Git and 'flutter run' on your platform of choice.
