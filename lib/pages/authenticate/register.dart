@@ -88,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           setState(() => password = val);
                         },
                         autofocus: false,
-                        obscureText: false,
+                        obscureText: true,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
                             labelText: "Password",
